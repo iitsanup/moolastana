@@ -1,88 +1,138 @@
-/* BODY BACKGROUND */
-body {
+/* ===================== RESET ===================== */
+* {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial;
-
-    background-color: black;
-    background-image: url("/static/images/temple.jpg");
-
-    background-size: 100%;
-    background-position: center 35%;
-    background-repeat: no-repeat;
-
-    height: 100vh;
 }
 
-/* TITLE */
+/* ===================== BODY ===================== */
+body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    background-image: url("/static/images/temple.jpg");
+    background-size: cover;
+    background-position: center 35%;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+/* ===================== HEADER ===================== */
+.header {
+    display: block;
+    text-align: center;
+    padding: 10px;
+}
+
+/* ===================== TITLE ===================== */
 #title {
-    font-size: 42px;        /* ✅ increase size */
-
-    text-align: center;     /* ✅ center text */
-
-    display: block;         /* ✅ ensures full width */
-
-    margin: 20px auto;      /* ✅ center alignment */
-
+    font-size: 28px;
+    text-align: center;
+    display: block;
+    margin: 15px auto;
     color: #FFD700;
-
     font-weight: bold;
-
     letter-spacing: 2px;
-
     background: rgba(0,0,0,0.5);
     padding: 10px 20px;
     border-radius: 10px;
+    max-width: 95%;
 }
 
-
-/* MENU */
-
-/* MENU */
-.menu {
+/* ===================== MEMBER LOGIN ===================== */
+.member-login {
     position: absolute;
-    bottom: 30px;
-    width: 55%;
-    left: 20px;
+    top: 15px;
+    right: 15px;
+    background: orange;
+    color: black;
+    border-radius: 5px;
+    font-weight: bold;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 100;
+}
+
+/* ===================== LANGUAGE SWITCH ===================== */
+.lang-switch {
+    position: absolute;
+    top: 55px;
+    right: 15px;
+    z-index: 100;
+}
+
+.lang-switch button {
+    padding: 5px 10px;
+    margin-left: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* ===================== ADDRESS ===================== */
+.address {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    font-size: 12px;
+    color: #FFD700;
+    text-align: right;
+    z-index: 999;
+    background: rgba(0,0,0,0.5);
+    padding: 5px 8px;
+    border-radius: 6px;
+    max-width: 200px;
+}
+
+/* ===================== MENU ===================== */
+.menu {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 15px;
+    padding: 15px;
+    margin: 10px auto;
+    max-width: 600px;
+    position: relative;
 }
 
-
-/* MENU ITEMS */
+/* ===================== MENU ITEMS ===================== */
 .menu-item {
     text-align: center;
     color: orange;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* ICONS */
+/* ===================== ICONS ===================== */
 .menu-item img {
-    width: 90px;
-    height: 90px;
-
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
-    padding: 10px;
-
+    padding: 8px;
     background: white;
     object-fit: contain;
-
-    /* ✅ Glow effect */
     box-shadow: 0 0 10px rgba(255, 165, 0, 0.7),
                 0 0 20px rgba(255, 165, 0, 0.5);
+    transition: transform 0.2s;
 }
-/* HOVER EFFECT */
+
 .menu-item img:hover {
     transform: scale(1.1);
-
     box-shadow: 0 0 15px orange,
                 0 0 30px orange,
                 0 0 45px gold;
 }
 
+.menu-item p {
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 6px;
+    line-height: 1.3;
+}
 
-/* POPUP */
+/* ===================== POPUP ===================== */
 .popup {
     display: none;
     position: fixed;
@@ -91,8 +141,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-
     background-color: rgba(0,0,0,0.9);
+    overflow-y: auto;
 }
 
 .popup-content {
@@ -105,287 +155,238 @@ body {
 
 .close {
     position: absolute;
-    top: 20px;
-    right: 40px;
-    font-size: 40px;
+    top: 15px;
+    right: 25px;
+    font-size: 35px;
     color: white;
     cursor: pointer;
 }
-.menu-item p {
-    font-size: 25px;   /* increase this value */
-    font-weight: bold; /* optional - makes it bold */
-    margin-top: 5px;
-}
-.lang-switch {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
 
-.lang-switch button {
-    padding: 5px 10px;
-    margin-left: 5px;
-    font-weight: bold;
-    cursor: pointer;
-}
-/* NAV BUTTONS */
+/* ===================== NAV BUTTONS ===================== */
 .prev, .next {
     position: absolute;
     top: 50%;
-    font-size: 40px;
+    font-size: 35px;
     color: white;
     padding: 10px;
     cursor: pointer;
     user-select: none;
 }
 
-.prev {
-    left: 20px;
-}
+.prev { left: 10px; }
+.next { right: 10px; }
 
-.next {
-    right: 20px;
-}
+.prev:hover, .next:hover { color: gold; }
 
-.prev:hover, .next:hover {
-    color: gold;
-}
+/* ===================== FORM BOX ===================== */
 .form-box {
     background: white;
     padding: 20px;
-    margin: 50px auto;
-    width: 300px;
+    margin: 30px auto;
+    width: 90%;
+    max-width: 340px;
     display: flex;
     flex-direction: column;
+    border-radius: 10px;
+    position: relative;
 }
 
-.form-box input, .form-box select {
+.form-box input,
+.form-box select {
     margin: 5px 0;
-    padding: 8px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
 }
 
 .form-box h2 {
     text-align: center;
+    margin-bottom: 10px;
 }
 
 #statusMsg {
     margin-top: 10px;
     font-weight: bold;
 }
-.member-login {
-    position: absolute;
-    top: 55px;
-    right: 20px;
-    background: gold;
-    padding: 5px 10px;
-    cursor: pointer;
-}
 
+/* ===================== TABS ===================== */
 .tabs button {
     margin: 5px;
-    padding: 5px 10px;
+    padding: 8px 14px;
     cursor: pointer;
+    font-size: 14px;
 }
 
-
-
-/* LIST */
+/* ===================== LIST ===================== */
 ul {
     margin-top: 10px;
     padding-left: 20px;
 }
+
+/* ===================== ADMIN BOX ===================== */
 .admin-box {
     background: linear-gradient(white, #f8f8f8);
-}
-.address {
-    position: fixed !important;   /* ✅ force fixed positioning */
-    right: 20px;
-    bottom: 20px;
-
-    font-size: 14px;
-    color: brown;
-    text-align: right;
-
-    z-index: 999;   /* ✅ bring above everything */
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px;
 }
 
-
-.header {
-    display: block;   /* ✅ remove flex */
-    text-align: center;
+.admin-only {
+    border: 2px solid #8B4513;
 }
-.member-login {
-    background: orange;
-    color: black;
-    border-radius: 5px;
-    font-weight: bold;
+
+/* ===================== SEVA SECTION ===================== */
+#sevaSection {
+    width: 95%;
+    max-width: 600px;
+    margin: 10px auto;
+    color: white;
+    padding: 10px;
 }
 
 .seva-card {
     border: 1px solid #ccc;
     margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 12px;
+    border-radius: 8px;
     background: #f9f9f9;
 }
 
-.seva-card h3 {
-    color: #8B4513;
-}
+.seva-card h3 { color: #8B4513; margin-bottom: 8px; }
+
 .seva-card p {
     color: #8B4513;
-    background: rgba(255,255,255,0.85);  /* optional for contrast */
+    background: rgba(255,255,255,0.85);
     padding: 8px;
     border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.5;
 }
-#sevaSection {
-    width: 50%;
-    margin-left: 20px;
 
-    margin-top: -20px;   /* ✅ lift upward */
-
+.seva-card button {
+    margin-top: 10px;
+    padding: 8px 14px;
+    background: #8B4513;
     color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
 }
+
+.seva-card button:hover { background: #5C4033; }
 
 .edit-btn {
     margin-top: 5px;
     background: #007bff;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 6px 12px;
     cursor: pointer;
+    border-radius: 4px;
+    font-size: 13px;
 }
 
-.edit-btn:hover {
-    background: #0056b3;
-}
-.close {
-    cursor: pointer;
-    font-size: 20px;
-    color: red;
-}
-#sevaSection {
-    width: 50%;
-    margin-left: 20px;
+.edit-btn:hover { background: #0056b3; }
 
-    margin-top: -30px;   /* ✅ lift upward */
-
+/* ===================== TRUSTEE SECTION ===================== */
+#trusteeSection {
+    width: 95%;
+    max-width: 700px;
+    margin: 10px auto;
     color: white;
-}
-.seva-card button {
-    margin-top: 10px;
-    padding: 8px 12px;
-
-    background: #8B4513;   /* brown */
-    color: white;
-
-    border: none;
-    border-radius: 5px;
-
-    cursor: pointer;
+    padding: 10px;
 }
 
-.seva-card button:hover {
-    background: #5C4033;
-}
 .trustee-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 15px;
+    justify-content: center;
 }
 
 .trustee-card {
-    width: 180px;        /* ✅ compact left layout */
+    width: 140px;
     text-align: center;
-
     background: rgba(0,0,0,0.6);
     padding: 10px;
     border-radius: 10px;
 }
 
 .trustee-img {
-    width: 120px;
-    height: 120px;
-
-    border-radius: 50%;   /* ✅ round photo */
-
-    object-fit: cover;
-    border: 3px solid #8B4513;
-}
-#trusteeSection {
-    width: 50%;          /* ✅ left half */
-    margin-left: 20px;   /* ✅ spacing from left */
-
-    color: white;
-
-    margin-top: -20px;   /* ✅ lift up (same as seva) */
-}
-
-.family-container {
-    display: flex;
-
-    flex-direction: row;      /* ✅ single row */
-
-    justify-content: space-between;  /* ✅ spread full width */
-
-    align-items: flex-start;
-
-    width: 100%;             /* ✅ full page */
-
-    padding: 10px;
-
-    box-sizing: border-box;
-}
-.family-card {
-    width: 15%;
-
-    text-align: center;   /* ✅ THIS LINE DOES THE MAGIC */
-
-    background: white;
-    padding: 10px;
-    border-radius: 10px;
-
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-.family-img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
+    border: 3px solid #8B4513;
 }
+
+/* ===================== FAMILY SECTION ===================== */
+#familySection {
+    background: #f5f5dc;
+    min-height: 100vh;
+    padding: 15px;
+}
+
+.family-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    padding: 10px 0;
+}
+
+.family-card {
+    width: 160px;
+    text-align: center;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.family-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .family-card h3 {
     color: #8B4513;
-
     font-weight: bold;
-
-    font-size: 20px;
-
+    font-size: 16px;
     padding-bottom: 5px;
-
-    border-bottom: 1px solid #ddd;   /* ✅ line under title */
-
-    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 8px;
+    margin-top: 6px;
 }
-.members {
-    margin-top: 10px;
-}
+
+.members { margin-top: 8px; }
 
 .member:hover {
     background: #ddd;
     cursor: pointer;
 }
+
 .members p:first-child {
-    font-weight: bold;     /* ✅ make first member bold */
-
-    margin-top: 5px;       /* ✅ spacing from title */
-
-    color: #000;           /* ✅ optional: strong text */
+    font-weight: bold;
+    margin-top: 5px;
+    color: #000;
 }
+
+/* ===================== DONATION ===================== */
 .donation-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 40px;
-    margin-top: 50px;
+    gap: 25px;
+    margin-top: 30px;
+    padding: 10px;
 }
 
 .donation-card {
@@ -394,38 +395,162 @@ ul {
 }
 
 .donation-card img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     background: white;
     padding: 10px;
 }
 
 .donation-card p {
-    color: #8B4513;   /* ✅ same brown theme */
-}.year-tabs {
+    color: #8B4513;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* ===================== YEAR TABS ===================== */
+.year-tabs {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .year-tabs button {
-    padding: 10px 20px;
-    margin: 10px;
-
-    font-size: 16px;
-
+    padding: 8px 16px;
+    margin: 6px;
+    font-size: 15px;
     background: #8B4513;
     color: white;
-
     border: none;
     border-radius: 8px;
-
     cursor: pointer;
 }
 
-.year-tabs button:hover {
-    background: #5C4033;
+.year-tabs button:hover { background: #5C4033; }
+
+/* ===================== MOBILE STYLES ===================== */
+@media (max-width: 480px) {
+
+    #title {
+        font-size: 18px;
+        letter-spacing: 1px;
+        padding: 8px 12px;
+        margin: 10px auto;
+    }
+
+    .member-login {
+        font-size: 12px;
+        padding: 5px 8px;
+        top: 10px;
+        right: 10px;
+    }
+
+    .lang-switch {
+        top: 45px;
+        right: 10px;
+    }
+
+    .lang-switch button {
+        font-size: 11px;
+        padding: 4px 7px;
+    }
+
+    /* 4 icons per row on mobile */
+    .menu {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        padding: 10px 8px;
+        margin-top: 5px;
+    }
+
+    .menu-item img {
+        width: 55px;
+        height: 55px;
+        padding: 6px;
+    }
+
+    .menu-item p {
+        font-size: 10px;
+        margin-top: 4px;
+    }
+
+    .address {
+        font-size: 10px;
+        max-width: 150px;
+        padding: 4px 6px;
+    }
+
+    .trustee-card {
+        width: 120px;
+    }
+
+    .trustee-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .family-card {
+        width: 140px;
+    }
+
+    .seva-card p {
+        font-size: 13px;
+    }
+
+    .form-box {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .year-tabs button {
+        padding: 6px 12px;
+        font-size: 13px;
+        margin: 4px;
+    }
 }
-.admin-only {
-    border: 2px solid #8B4513;
+
+/* ===================== TABLET STYLES ===================== */
+@media (min-width: 481px) and (max-width: 768px) {
+
+    #title {
+        font-size: 22px;
+    }
+
+    .menu {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .menu-item img {
+        width: 65px;
+        height: 65px;
+    }
+
+    .menu-item p {
+        font-size: 12px;
+    }
+}
+
+/* ===================== DESKTOP STYLES ===================== */
+@media (min-width: 769px) {
+
+    #title {
+        font-size: 38px;
+    }
+
+    .menu {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 20px;
+        max-width: 700px;
+    }
+
+    .menu-item img {
+        width: 90px;
+        height: 90px;
+    }
+
+    .menu-item p {
+        font-size: 16px;
+    }
 }
