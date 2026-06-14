@@ -8,65 +8,107 @@
 /* ===================== BODY ===================== */
 body {
     font-family: Arial, sans-serif;
-    background-color: black;
-    background-image: url("/static/images/temple.jpg");
-    background-size: cover;
-    background-position: center 35%;
-    background-repeat: no-repeat;
     min-height: 100vh;
+    overflow-x: hidden;
+    background-color: black;
+}
+
+/* ===================== SLIDESHOW BACKGROUND ===================== */
+.slideshow-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide:nth-child(1) { background-image: url("/static/images/temple.jpg"); }
+.slide:nth-child(2) { background-image: url("/static/images/gallery1.jpg"); }
+.slide:nth-child(3) { background-image: url("/static/images/gallery2.jpg"); }
+
+/* dark overlay over slideshow */
+.slideshow-bg::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.35);
+}
+
+/* ===================== MEMBER LOGIN ===================== */
+.member-login {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    background: orange;
+    color: black;
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 14px;
+    z-index: 500;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* ===================== LANGUAGE SWITCH ===================== */
+.lang-switch {
+    position: fixed;
+    top: 58px;
+    right: 12px;
+    z-index: 500;
+}
+
+.lang-switch button {
+    padding: 5px 10px;
+    margin-left: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 5px;
+    border: none;
+    background: rgba(255,255,255,0.85);
 }
 
 /* ===================== HEADER ===================== */
 .header {
     display: block;
     text-align: center;
-    padding: 10px;
+    padding-top: 15px;
 }
 
 /* ===================== TITLE ===================== */
 #title {
-    font-size: 28px;
+    font-size: 22px;
     text-align: center;
-    display: block;
-    margin: 15px auto;
+    display: inline-block;
+    margin: 12px auto;
     color: #FFD700;
     font-weight: bold;
-    letter-spacing: 2px;
-    background: rgba(0,0,0,0.5);
-    padding: 10px 20px;
-    border-radius: 10px;
-    max-width: 95%;
-}
-
-/* ===================== MEMBER LOGIN ===================== */
-.member-login {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: orange;
-    color: black;
-    border-radius: 5px;
-    font-weight: bold;
-    padding: 6px 12px;
-    cursor: pointer;
-    font-size: 14px;
-    z-index: 100;
-}
-
-/* ===================== LANGUAGE SWITCH ===================== */
-.lang-switch {
-    position: absolute;
-    top: 55px;
-    right: 15px;
-    z-index: 100;
-}
-
-.lang-switch button {
-    padding: 5px 10px;
-    margin-left: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 13px;
+    letter-spacing: 1px;
+    background: rgba(0,0,0,0.55);
+    padding: 10px 18px;
+    border-radius: 12px;
+    max-width: 80%;
+    line-height: 1.4;
 }
 
 /* ===================== ADDRESS ===================== */
@@ -74,31 +116,32 @@ body {
     position: fixed;
     right: 10px;
     bottom: 10px;
-    font-size: 12px;
+    font-size: 11px;
     color: #FFD700;
     text-align: right;
-    z-index: 999;
-    background: rgba(0,0,0,0.5);
+    z-index: 500;
+    background: rgba(0,0,0,0.55);
     padding: 5px 8px;
     border-radius: 6px;
-    max-width: 200px;
+    max-width: 180px;
+    line-height: 1.4;
 }
 
 /* ===================== MENU ===================== */
 .menu {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    padding: 15px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    padding: 20px 15px;
     margin: 10px auto;
-    max-width: 600px;
-    position: relative;
+    max-width: 420px;
+    justify-items: center;
 }
 
 /* ===================== MENU ITEMS ===================== */
 .menu-item {
     text-align: center;
-    color: orange;
+    color: #FFD700;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -107,29 +150,27 @@ body {
 
 /* ===================== ICONS ===================== */
 .menu-item img {
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
-    padding: 8px;
+    padding: 12px;
     background: white;
     object-fit: contain;
-    box-shadow: 0 0 10px rgba(255, 165, 0, 0.7),
-                0 0 20px rgba(255, 165, 0, 0.5);
+    box-shadow: 0 0 12px rgba(255, 165, 0, 0.8),
+                0 0 25px rgba(255, 165, 0, 0.5);
     transition: transform 0.2s;
 }
 
-.menu-item img:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 15px orange,
-                0 0 30px orange,
-                0 0 45px gold;
+.menu-item img:active {
+    transform: scale(0.93);
 }
 
 .menu-item p {
     font-size: 13px;
     font-weight: bold;
-    margin-top: 6px;
+    margin-top: 8px;
     line-height: 1.3;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
 }
 
 /* ===================== POPUP ===================== */
@@ -137,11 +178,10 @@ body {
     display: none;
     position: fixed;
     z-index: 999;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.9);
+    background-color: rgba(0,0,0,0.92);
     overflow-y: auto;
 }
 
@@ -149,17 +189,18 @@ body {
     display: block;
     margin: auto;
     margin-top: 50px;
-    max-width: 90%;
-    max-height: 90%;
+    max-width: 92%;
+    max-height: 85%;
 }
 
 .close {
     position: absolute;
     top: 15px;
-    right: 25px;
-    font-size: 35px;
+    right: 20px;
+    font-size: 38px;
     color: white;
     cursor: pointer;
+    z-index: 1000;
 }
 
 /* ===================== NAV BUTTONS ===================== */
@@ -172,10 +213,8 @@ body {
     cursor: pointer;
     user-select: none;
 }
-
-.prev { left: 10px; }
-.next { right: 10px; }
-
+.prev { left: 5px; }
+.next { right: 5px; }
 .prev:hover, .next:hover { color: gold; }
 
 /* ===================== FORM BOX ===================== */
@@ -183,27 +222,27 @@ body {
     background: white;
     padding: 20px;
     margin: 30px auto;
-    width: 90%;
+    width: 92%;
     max-width: 340px;
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
+    border-radius: 12px;
     position: relative;
 }
 
 .form-box input,
 .form-box select {
-    margin: 5px 0;
+    margin: 6px 0;
     padding: 10px;
     font-size: 15px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 6px;
     width: 100%;
 }
 
 .form-box h2 {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 #statusMsg {
@@ -217,6 +256,7 @@ body {
     padding: 8px 14px;
     cursor: pointer;
     font-size: 14px;
+    border-radius: 5px;
 }
 
 /* ===================== LIST ===================== */
@@ -228,14 +268,12 @@ ul {
 /* ===================== ADMIN BOX ===================== */
 .admin-box {
     background: linear-gradient(white, #f8f8f8);
-    padding: 10px;
+    padding: 12px;
     border-radius: 8px;
     margin: 10px;
 }
 
-.admin-only {
-    border: 2px solid #8B4513;
-}
+.admin-only { border: 2px solid #8B4513; }
 
 /* ===================== SEVA SECTION ===================== */
 #sevaSection {
@@ -248,13 +286,13 @@ ul {
 
 .seva-card {
     border: 1px solid #ccc;
-    margin: 10px 0;
-    padding: 12px;
-    border-radius: 8px;
+    margin: 12px 0;
+    padding: 14px;
+    border-radius: 10px;
     background: #f9f9f9;
 }
 
-.seva-card h3 { color: #8B4513; margin-bottom: 8px; }
+.seva-card h3 { color: #8B4513; margin-bottom: 8px; font-size: 16px; }
 
 .seva-card p {
     color: #8B4513;
@@ -267,11 +305,11 @@ ul {
 
 .seva-card button {
     margin-top: 10px;
-    padding: 8px 14px;
+    padding: 10px 16px;
     background: #8B4513;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
 }
@@ -288,8 +326,6 @@ ul {
     border-radius: 4px;
     font-size: 13px;
 }
-
-.edit-btn:hover { background: #0056b3; }
 
 /* ===================== TRUSTEE SECTION ===================== */
 #trusteeSection {
@@ -308,7 +344,7 @@ ul {
 }
 
 .trustee-card {
-    width: 140px;
+    width: 130px;
     text-align: center;
     background: rgba(0,0,0,0.6);
     padding: 10px;
@@ -316,8 +352,8 @@ ul {
 }
 
 .trustee-img {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid #8B4513;
@@ -332,16 +368,14 @@ ul {
 
 .family-container {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
-    width: 100%;
     padding: 10px 0;
 }
 
 .family-card {
-    width: 160px;
+    width: 150px;
     text-align: center;
     background: white;
     padding: 10px;
@@ -359,7 +393,7 @@ ul {
 .family-card h3 {
     color: #8B4513;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 15px;
     padding-bottom: 5px;
     border-bottom: 1px solid #ddd;
     margin-bottom: 8px;
@@ -367,17 +401,8 @@ ul {
 }
 
 .members { margin-top: 8px; }
-
-.member:hover {
-    background: #ddd;
-    cursor: pointer;
-}
-
-.members p:first-child {
-    font-weight: bold;
-    margin-top: 5px;
-    color: #000;
-}
+.member:hover { background: #ddd; cursor: pointer; }
+.members p:first-child { font-weight: bold; margin-top: 5px; color: #000; }
 
 /* ===================== DONATION ===================== */
 .donation-container {
@@ -389,35 +414,25 @@ ul {
     padding: 10px;
 }
 
-.donation-card {
-    text-align: center;
-    cursor: pointer;
-}
+.donation-card { text-align: center; cursor: pointer; }
 
 .donation-card img {
-    width: 80px;
-    height: 80px;
+    width: 85px;
+    height: 85px;
     border-radius: 50%;
     background: white;
     padding: 10px;
 }
 
-.donation-card p {
-    color: #8B4513;
-    font-size: 14px;
-    margin-top: 5px;
-}
+.donation-card p { color: #8B4513; font-size: 14px; margin-top: 5px; }
 
 /* ===================== YEAR TABS ===================== */
-.year-tabs {
-    text-align: center;
-    margin-top: 30px;
-}
+.year-tabs { text-align: center; margin-top: 30px; }
 
 .year-tabs button {
     padding: 8px 16px;
     margin: 6px;
-    font-size: 15px;
+    font-size: 14px;
     background: #8B4513;
     color: white;
     border: none;
@@ -427,130 +442,17 @@ ul {
 
 .year-tabs button:hover { background: #5C4033; }
 
-/* ===================== MOBILE STYLES ===================== */
-@media (max-width: 480px) {
-
-    #title {
-        font-size: 18px;
-        letter-spacing: 1px;
-        padding: 8px 12px;
-        margin: 10px auto;
-    }
-
-    .member-login {
-        font-size: 12px;
-        padding: 5px 8px;
-        top: 10px;
-        right: 10px;
-    }
-
-    .lang-switch {
-        top: 45px;
-        right: 10px;
-    }
-
-    .lang-switch button {
-        font-size: 11px;
-        padding: 4px 7px;
-    }
-
-    /* 4 icons per row on mobile */
-    .menu {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
-        padding: 10px 8px;
-        margin-top: 5px;
-    }
-
-    .menu-item img {
-        width: 55px;
-        height: 55px;
-        padding: 6px;
-    }
-
-    .menu-item p {
-        font-size: 10px;
-        margin-top: 4px;
-    }
-
-    .address {
-        font-size: 10px;
-        max-width: 150px;
-        padding: 4px 6px;
-    }
-
-    .trustee-card {
-        width: 120px;
-    }
-
-    .trustee-img {
-        width: 80px;
-        height: 80px;
-    }
-
-    .family-card {
-        width: 140px;
-    }
-
-    .seva-card p {
-        font-size: 13px;
-    }
-
-    .form-box {
-        width: 95%;
-        padding: 15px;
-    }
-
-    .year-tabs button {
-        padding: 6px 12px;
-        font-size: 13px;
-        margin: 4px;
-    }
-}
-
-/* ===================== TABLET STYLES ===================== */
-@media (min-width: 481px) and (max-width: 768px) {
-
-    #title {
-        font-size: 22px;
-    }
-
-    .menu {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
-        padding: 12px;
-    }
-
-    .menu-item img {
-        width: 65px;
-        height: 65px;
-    }
-
-    .menu-item p {
-        font-size: 12px;
-    }
-}
-
-/* ===================== DESKTOP STYLES ===================== */
+/* ===================== DESKTOP OVERRIDES ===================== */
 @media (min-width: 769px) {
-
-    #title {
-        font-size: 38px;
-    }
+    #title { font-size: 36px; max-width: 70%; }
 
     .menu {
         grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-        padding: 20px;
         max-width: 700px;
+        gap: 25px;
     }
 
-    .menu-item img {
-        width: 90px;
-        height: 90px;
-    }
-
-    .menu-item p {
-        font-size: 16px;
-    }
+    .menu-item img { width: 100px; height: 100px; }
+    .menu-item p { font-size: 16px; }
+    .member-login { font-size: 15px; padding: 8px 16px; }
 }
