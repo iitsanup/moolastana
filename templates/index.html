@@ -57,7 +57,11 @@
             </a>
             <p id="location">ಸ್ಥಳ</p>
             </div>
-	<div class="menu-item admin-only" style="display:none;" onclick="openAdminPage()">
+	<div class="menu-item" onclick="openContactPage()">
+            <img src="{{ url_for('static', filename='images/contact.png') }}">
+            <p>ಸಂಪರ್ಕ</p>
+        </div>
+        <div class="menu-item admin-only" style="display:none;" onclick="openAdminPage()">
             <img src="{{ url_for('static', filename='images/settings.png') }}">
             <p>ನಿರ್ವಹಣೆ</p>
 </div>
@@ -132,6 +136,63 @@
         </button>
     </div>
  </div>
+
+<!-- CONTACT SECTION -->
+<div id="contactSection" style="display:none; background:#f5f5dc; min-height:100vh; padding:20px;">
+    <button onclick="closeContactPage()" style="margin-bottom:15px;">⬅ ಹಿಂದಿರುಗಿ</button>
+    <h2 style="text-align:center; color:#8B4513; margin-bottom:20px;">ಸಂಪರ್ಕ ವಿವರಗಳು</h2>
+    <div class="contact-card">
+        <div class="contact-row">
+            <span class="contact-icon">🛕</span>
+            <div>
+                <strong>ದೇವಸ್ಥಾನದ ಹೆಸರು</strong>
+                <p id="contact-temple" class="contact-val">ಶ್ರೀ ನಾಗಬ್ರಹ್ಮ ರಕ್ತೇಶ್ವರಿ ಮೂಲಸ್ಥಾನ</p>
+                <button class="edit-btn" style="display:none;" onclick="editContact('contact-temple')">✏️ Edit</button>
+            </div>
+        </div>
+        <div class="contact-row">
+            <span class="contact-icon">📍</span>
+            <div>
+                <strong>ವಿಳಾಸ</strong>
+                <p id="contact-address" class="contact-val">ಕಟ್ಟೆ ಬಜಾರ್, ಬಂಗ್ರಾ ಮಂಜೇಶ್ವರ - ೬೭೧೩೨೩</p>
+                <button class="edit-btn" style="display:none;" onclick="editContact('contact-address')">✏️ Edit</button>
+            </div>
+        </div>
+        <div class="contact-row">
+            <span class="contact-icon">📞</span>
+            <div>
+                <strong>ಫೋನ್</strong>
+                <p id="contact-phone" class="contact-val">+91 00000 00000</p>
+                <button class="edit-btn" style="display:none;" onclick="editContact('contact-phone')">✏️ Edit</button>
+            </div>
+        </div>
+        <div class="contact-row">
+            <span class="contact-icon">📧</span>
+            <div>
+                <strong>Email</strong>
+                <p id="contact-email" class="contact-val">temple@email.com</p>
+                <button class="edit-btn" style="display:none;" onclick="editContact('contact-email')">✏️ Edit</button>
+            </div>
+        </div>
+        <div class="contact-row">
+            <span class="contact-icon">🕐</span>
+            <div>
+                <strong>ಪೂಜಾ ಸಮಯ</strong>
+                <p id="contact-timing" class="contact-val">ಬೆಳಿಗ್ಗೆ 6:00 - 12:00 | ಸಂಜೆ 5:00 - 8:00</p>
+                <button class="edit-btn" style="display:none;" onclick="editContact('contact-timing')">✏️ Edit</button>
+            </div>
+        </div>
+        <div class="contact-row">
+            <span class="contact-icon">👤</span>
+            <div>
+                <strong>ಮುಖ್ಯ ಟ್ರಸ್ಟಿ</strong>
+                <p id="contact-trustee" class="contact-val">ಹೆಸರು ಇಲ್ಲಿ ಬರಲಿದೆ</p>
+                <button class="edit-btn" style="display:none;" onclick="editContact('contact-trustee')">✏️ Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- ✅ TRUSTEE SECTION -->
 <div id="trusteeSection" style="display:none;">
 
@@ -144,49 +205,61 @@
         <!-- ✅MEMBER 1 -->
         <div class="trustee-card">
             <img src="/static/images/member1.jpg" class="trustee-img">
-            <h3>ಸದಸ್ಯ 1</h3>
-            <p id="m1-desc">ವಿವರ ಇಲ್ಲಿ ಬರಲಿದೆ</p>
-            <button class="edit-btn" style="display:none;" onclick="editText('m1-desc')">ಸಂಪಾದನೆ</button>
+            <h3 id="m1-name">ಸದಸ್ಯ 1</h3>
+            <p id="m1-role" style="color:gold; font-size:12px; font-weight:bold;"></p>
+            <p id="m1-location" style="color:#ccc; font-size:11px;">📍 </p>
+            <p id="m1-desc" style="font-size:12px; color:#ddd; margin-top:4px;"></p>
+            <button class="edit-btn" style="display:none;" onclick="editTrustee(1)">✏️ Edit</button>
         </div>
 
         <!-- ✅MEMBER 2 -->
         <div class="trustee-card">
             <img src="/static/images/member2.jpg" class="trustee-img">
-            <h3>ಸದಸ್ಯ 2</h3>
-            <p id="m2-desc">ವಿವರ ಇಲ್ಲಿ ಬರಲಿದೆ</p>
-            <button class="edit-btn" style="display:none;" onclick="editText('m2-desc')">ಸಂಪಾದನೆ</button>
+            <h3 id="m2-name">ಸದಸ್ಯ 2</h3>
+            <p id="m2-role" style="color:gold; font-size:12px; font-weight:bold;"></p>
+            <p id="m2-location" style="color:#ccc; font-size:11px;">📍 </p>
+            <p id="m2-desc" style="font-size:12px; color:#ddd; margin-top:4px;"></p>
+            <button class="edit-btn" style="display:none;" onclick="editTrustee(2)">✏️ Edit</button>
         </div>
 
         <!-- ✅MEMBER 3 -->
         <div class="trustee-card">
             <img src="/static/images/member3.jpg" class="trustee-img">
-            <h3>ಸದಸ್ಯ 3</h3>
-            <p id="m3-desc">ವಿವರ ಇಲ್ಲಿ ಬರಲಿದೆ</p>
-            <button class="edit-btn" style="display:none;" onclick="editText('m3-desc')">ಸಂಪಾದನೆ</button>
+            <h3 id="m3-name">ಸದಸ್ಯ 3</h3>
+            <p id="m3-role" style="color:gold; font-size:12px; font-weight:bold;"></p>
+            <p id="m3-location" style="color:#ccc; font-size:11px;">📍 </p>
+            <p id="m3-desc" style="font-size:12px; color:#ddd; margin-top:4px;"></p>
+            <button class="edit-btn" style="display:none;" onclick="editTrustee(3)">✏️ Edit</button>
         </div>
 
         <!-- ✅MEMBER 4 -->
         <div class="trustee-card">
             <img src="/static/images/member4.jpg" class="trustee-img">
-            <h3>ಸದಸ್ಯ 4</h3>
-            <p id="m4-desc">ವಿವರ ಇಲ್ಲಿ ಬರಲಿದೆ</p>
-            <button class="edit-btn" style="display:none;" onclick="editText('m4-desc')">ಸಂಪಾದನೆ</button>
+            <h3 id="m4-name">ಸದಸ್ಯ 4</h3>
+            <p id="m4-role" style="color:gold; font-size:12px; font-weight:bold;"></p>
+            <p id="m4-location" style="color:#ccc; font-size:11px;">📍 </p>
+            <p id="m4-desc" style="font-size:12px; color:#ddd; margin-top:4px;"></p>
+            <button class="edit-btn" style="display:none;" onclick="editTrustee(4)">✏️ Edit</button>
         </div>
 
         <!-- ✅MEMBER 5 -->
         <div class="trustee-card">
             <img src="/static/images/member5.jpg" class="trustee-img">
-            <h3>ಸದಸ್ಯ 5</h3>
-            <p id="m5-desc">ವಿವರ ಇಲ್ಲಿ ಬರಲಿದೆ</p>
-            <button class="edit-btn" style="display:none;" onclick="editText('m5-desc')">ಸಂಪಾದನೆ</button>
+            <h3 id="m5-name">ಸದಸ್ಯ 5</h3>
+            <p id="m5-role" style="color:gold; font-size:12px; font-weight:bold;"></p>
+            <p id="m5-location" style="color:#ccc; font-size:11px;">📍 </p>
+            <p id="m5-desc" style="font-size:12px; color:#ddd; margin-top:4px;"></p>
+            <button class="edit-btn" style="display:none;" onclick="editTrustee(5)">✏️ Edit</button>
         </div>
 
         <!-- ✅MEMBER 6 -->
         <div class="trustee-card">
             <img src="/static/images/member6.jpg" class="trustee-img">
-            <h3>ಸದಸ್ಯ 6</h3>
-            <p id="m6-desc">ವಿವರ ಇಲ್ಲಿ ಬರಲಿದೆ</p>
-            <button class="edit-btn" style="display:none;" onclick="editText('m6-desc')">ಸಂಪಾದನೆ</button>
+            <h3 id="m6-name">ಸದಸ್ಯ 6</h3>
+            <p id="m6-role" style="color:gold; font-size:12px; font-weight:bold;"></p>
+            <p id="m6-location" style="color:#ccc; font-size:11px;">📍 </p>
+            <p id="m6-desc" style="font-size:12px; color:#ddd; margin-top:4px;"></p>
+            <button class="edit-btn" style="display:none;" onclick="editTrustee(6)">✏️ Edit</button>
         </div>
 
     </div>
@@ -481,14 +554,57 @@
     <h2 style="text-align:center;">ನಿರ್ವಹಣೆ</h2>
 
     <div class="year-tabs">
-
         <button onclick="openUploadEvents()">Event Upload</button>
         <button onclick="openExpenses()">Event Expenses</button>
         <button onclick="openGeneralData()">General Data</button>
         <button onclick="openPassword()">Change Password</button>
+        <button onclick="openMemberDatabase()">📋 Member Database</button>
+    </div>
+</div>
 
+<!-- MEMBER DATABASE SECTION -->
+<div id="memberDatabaseSection" style="display:none; background:#f5f5dc; min-height:100vh; padding:15px;">
+    <button onclick="closeMemberDatabase()" style="margin-bottom:10px;">⬅ ಹಿಂದಿರುಗಿ</button>
+    <h2 style="text-align:center; color:#8B4513;">ಸದಸ್ಯರ ದತ್ತಾಂಶ (Member Database)</h2>
+
+    <!-- Add Member Form -->
+    <div class="db-form">
+        <h3 style="color:#8B4513; margin-bottom:10px;">➕ ಹೊಸ ಸದಸ್ಯ ಸೇರಿಸಿ</h3>
+        <input type="text" id="db-name" placeholder="ಸದಸ್ಯರ ಹೆಸರು (Member Name)" style="width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #ccc;">
+        <input type="text" id="db-location" placeholder="ಸ್ಥಳ (Location)" style="width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #ccc;">
+        <input type="text" id="db-phone" placeholder="ಫೋನ್ ನಂಬರ್ (Phone)" style="width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #ccc;">
+        <input type="number" id="db-family-no" placeholder="ಕುಟುಂಬ ಸಂಖ್ಯೆ (Family No)" style="width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #ccc;">
+        <input type="text" id="db-role" placeholder="ಪಾತ್ರ (Role e.g. Trustee, Member)" style="width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #ccc;">
+        <input type="text" id="db-email" placeholder="Email (Optional)" style="width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #ccc;">
+        <button onclick="addMemberToDatabase()" style="margin-top:10px;padding:10px 20px;background:#8B4513;color:white;border:none;border-radius:8px;width:100%;font-size:15px;cursor:pointer;">
+            ✅ Save Member
+        </button>
+        <p id="db-status" style="text-align:center;margin-top:8px;font-weight:bold;"></p>
     </div>
 
+    <!-- Search -->
+    <div style="margin:15px 0;">
+        <input type="text" id="db-search" placeholder="🔍 Search member..." onkeyup="searchDatabase()"
+            style="width:100%;padding:8px;border-radius:5px;border:1px solid #ccc;">
+    </div>
+
+    <!-- Member Table -->
+    <div style="overflow-x:auto;">
+        <table id="memberDbTable" border="1" style="width:100%;border-collapse:collapse;font-size:13px;background:white;">
+            <thead style="background:#8B4513;color:white;">
+                <tr>
+                    <th style="padding:8px;">No</th>
+                    <th style="padding:8px;">ಹೆಸರು</th>
+                    <th style="padding:8px;">ಸ್ಥಳ</th>
+                    <th style="padding:8px;">ಫೋನ್</th>
+                    <th style="padding:8px;">ಕುಟುಂಬ</th>
+                    <th style="padding:8px;">ಪಾತ್ರ</th>
+                    <th style="padding:8px;">Action</th>
+                </tr>
+            </thead>
+            <tbody id="memberDbBody"></tbody>
+        </table>
+    </div>
 </div>
     <!-- ✅ SCRIPT ✅-->
 <script>
@@ -1157,6 +1273,148 @@ function openGeneralData() {
 function openPassword() {
     alert("Change login password");
 }
+// ============ CONTACT PAGE ============
+async function openContactPage() {
+    document.getElementById("menuSection").style.display = "none";
+    document.getElementById("contactSection").style.display = "block";
+    document.getElementById("title").innerText = "ಸಂಪರ್ಕ";
+    document.getElementById("address-kn").style.display = "none";
+    await loadContactData();
+}
+function closeContactPage() {
+    document.getElementById("menuSection").style.display = "";
+    document.getElementById("contactSection").style.display = "none";
+    document.getElementById("title").innerText = "ಶ್ರೀ ನಾಗಬ್ರಹ್ಮ ರಕ್ತೇಶ್ವರಿ ಮೂಲಸ್ಥಾನ";
+    document.getElementById("address-kn").style.display = "block";
+}
+async function editContact(id) {
+    if (!isLoggedIn) { alert("Please login to edit"); return; }
+    let el = document.getElementById(id);
+    let newVal = prompt("Edit:", el.innerText);
+    if (newVal !== null && newVal.trim() !== "") {
+        el.innerText = newVal;
+        await fetch("/save_contact", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ key: id, value: newVal })
+        });
+    }
+}
+async function loadContactData() {
+    try {
+        let res = await fetch("/get_contact");
+        let data = await res.json();
+        for (let item of data) {
+            let el = document.getElementById(item.key);
+            if (el) el.innerText = item.value;
+        }
+    } catch(e) {}
+}
+
+// ============ TRUSTEE EDIT (name, role, location, desc) ============
+async function editTrustee(i) {
+    if (!isLoggedIn) { alert("Please login to edit"); return; }
+    let name = prompt("ಹೆಸರು (Name):", document.getElementById("m"+i+"-name").innerText);
+    if (name === null) return;
+    let role = prompt("ಪಾತ್ರ (Role):", document.getElementById("m"+i+"-role").innerText);
+    if (role === null) return;
+    let location = prompt("ಸ್ಥಳ (Location):", document.getElementById("m"+i+"-location").innerText.replace("📍 ",""));
+    if (location === null) return;
+    let desc = prompt("ವಿವರ (Details):", document.getElementById("m"+i+"-desc").innerText);
+    if (desc === null) return;
+    document.getElementById("m"+i+"-name").innerText = name;
+    document.getElementById("m"+i+"-role").innerText = role;
+    document.getElementById("m"+i+"-location").innerText = "📍 " + location;
+    document.getElementById("m"+i+"-desc").innerText = desc;
+    await fetch("/save_trustee", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ member_number: i, name: name, role: role, location: location, description: desc })
+    });
+}
+async function loadTrusteeData() {
+    let res = await fetch("/get_trustees");
+    let rows = await res.json();
+    for (let row of rows) {
+        let n = row.member_number;
+        let nm = document.getElementById("m"+n+"-name");
+        let rl = document.getElementById("m"+n+"-role");
+        let lc = document.getElementById("m"+n+"-location");
+        let ds = document.getElementById("m"+n+"-desc");
+        if (nm && row.name) nm.innerText = row.name;
+        if (rl && row.role) rl.innerText = row.role;
+        if (lc && row.location) lc.innerText = "📍 " + row.location;
+        if (ds && row.description) ds.innerText = row.description;
+    }
+}
+
+// ============ MEMBER DATABASE ============
+function openMemberDatabase() {
+    document.getElementById("adminSection").style.display = "none";
+    document.getElementById("memberDatabaseSection").style.display = "block";
+    document.getElementById("title").innerText = "Member Database";
+    loadMemberDatabase();
+}
+function closeMemberDatabase() {
+    document.getElementById("memberDatabaseSection").style.display = "none";
+    document.getElementById("adminSection").style.display = "block";
+    document.getElementById("title").innerText = "ನಿರ್ವಹಣೆ";
+}
+async function addMemberToDatabase() {
+    let name = document.getElementById("db-name").value.trim();
+    let location = document.getElementById("db-location").value.trim();
+    let phone = document.getElementById("db-phone").value.trim();
+    let familyNo = document.getElementById("db-family-no").value.trim();
+    let role = document.getElementById("db-role").value.trim();
+    let email = document.getElementById("db-email").value.trim();
+    if (!name) { document.getElementById("db-status").innerText = "❌ Name required"; return; }
+    let res = await fetch("/save_member_db", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ name, location, phone, family_number: parseInt(familyNo)||0, role, email })
+    });
+    let data = await res.json();
+    if (data.status === "success") {
+        document.getElementById("db-status").innerText = "✅ Member saved!";
+        document.getElementById("db-name").value = "";
+        document.getElementById("db-location").value = "";
+        document.getElementById("db-phone").value = "";
+        document.getElementById("db-family-no").value = "";
+        document.getElementById("db-role").value = "";
+        document.getElementById("db-email").value = "";
+        await loadMemberDatabase();
+    }
+}
+async function loadMemberDatabase() {
+    let res = await fetch("/get_member_db");
+    let members = await res.json();
+    let tbody = document.getElementById("memberDbBody");
+    tbody.innerHTML = "";
+    members.forEach((m, i) => {
+        tbody.innerHTML += `<tr>
+            <td style="padding:6px;text-align:center;">${i+1}</td>
+            <td style="padding:6px;">${m.name||""}</td>
+            <td style="padding:6px;">${m.location||""}</td>
+            <td style="padding:6px;">${m.phone||""}</td>
+            <td style="padding:6px;text-align:center;">${m.family_number||""}</td>
+            <td style="padding:6px;">${m.role||""}</td>
+            <td style="padding:6px;text-align:center;"><button onclick="deleteMember(${m.id})" style="background:red;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">🗑️</button></td>
+        </tr>`;
+    });
+}
+async function deleteMember(id) {
+    if (!confirm("Delete this member?")) return;
+    await fetch("/delete_member_db/" + id, { method: "DELETE" });
+    await loadMemberDatabase();
+}
+function searchDatabase() {
+    let input = document.getElementById("db-search").value.toLowerCase();
+    let rows = document.getElementById("memberDbTable").getElementsByTagName("tr");
+    for (let i = 1; i < rows.length; i++) {
+        rows[i].style.display = rows[i].innerText.toLowerCase().includes(input) ? "" : "none";
+    }
+}
+
 </script>
 
 <div id="donationPopup" class="popup">
@@ -1198,5 +1456,8 @@ function openPassword() {
 
 </div>
 </div>
+
+<!-- WATERMARK -->
+<div class="watermark">✨ Designed and developed by Anu ✨</div>
 </body>
 </html>

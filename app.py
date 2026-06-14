@@ -88,15 +88,47 @@ def get_trustees():
 def save_trustee():
     body = request.get_json()
     member_number = body.get("member_number")
-
-    # Check if exists
     existing = supabase_get("trustees", f"member_number=eq.{member_number}")
-
     if existing:
         supabase_patch("trustees", "member_number", member_number, body)
     else:
         supabase_post("trustees", body)
+    return jsonify({"status": "success"})
 
+# ===================== CONTACT APIs =====================
+
+@app.route("/get_contact")
+def get_contact():
+    data = supabase_get("contact_info", "order=id.asc")
+    return jsonify(data)
+
+@app.route("/save_contact", methods=["POST"])
+def save_contact():
+    body = request.get_json()
+    key = body.get("key")
+    existing = supabase_get("contact_info", f"key=eq.{key}")
+    if existing:
+        supabase_patch("contact_info", "key", key, body)
+    else:
+        supabase_post("contact_info", body)
+    return jsonify({"status": "success"})
+
+# ===================== MEMBER DATABASE APIs =====================
+
+@app.route("/get_member_db")
+def get_member_db():
+    data = supabase_get("member_database", "order=id.asc")
+    return jsonify(data)
+
+@app.route("/save_member_db", methods=["POST"])
+def save_member_db():
+    body = request.get_json()
+    result = supabase_post("member_database", body)
+    return jsonify({"status": "success", "data": result})
+
+@app.route("/delete_member_db/<int:member_id>", methods=["DELETE"])
+def delete_member_db(member_id):
+    supabase_delete("member_database", "id", member_id)
     return jsonify({"status": "success"})
 
 # ===================== PAYMENT APIs =====================
