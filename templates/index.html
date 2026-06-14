@@ -8,12 +8,6 @@
 </head>
 
 <body>
-<div class="slideshow-bg">
-    <div class="slide active"></div>
-    <div class="slide"></div>
-    <div class="slide"></div>
-</div>
-
 <div class="member-login" id="loginBtn" onclick="openMemberLogin()">
     👤 Member Login
 </div>
@@ -623,7 +617,7 @@ function showTab(tabName) {
 
 
 // ✅LOAD AT START
-window.onload = function() {};
+window.onload = async function() { await loadFamilyData(); };
 
 //✅SEVA 
 
@@ -673,25 +667,34 @@ function editText(id) {
     }
 }
 function bookSeva(type) {
-
-    // ✅ Show donation popup
     document.getElementById("donationPopup").style.display = "block";
-
-    // ✅ Auto select seva type
     let sevaType = document.getElementById("sevaType");
-
-    if (type === "panchami") {
-        sevaType.value = "panchami";
-    }
-    else if (type === "thambila") {
-        sevaType.value = "thambila";
-    }
-    else if (type === "annasantharpana") {
-        sevaType.value = "donation";
-    }
-
-    // ✅ Update form values
+    if (type === "panchami") sevaType.value = "panchami";
+    else if (type === "thambila") sevaType.value = "thambila";
+    else if (type === "annasantharpana") sevaType.value = "donation";
     updateForm();
+}
+
+async function makePayment() {
+    let sevaType = document.getElementById("sevaType").value;
+    let name = document.getElementById("name").value;
+    let place = document.getElementById("place").value;
+    let contact = document.getElementById("contact").value;
+    let amount = document.getElementById("amount").value;
+    if (!sevaType || !name || !amount) {
+        document.getElementById("statusMsg").innerText = "❌ Please fill all fields";
+        return;
+    }
+    let res = await fetch("/book_seva", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ seva_type: sevaType, name, place, contact, amount: parseFloat(amount) })
+    });
+    let data = await res.json();
+    if (data.status === "success") {
+        document.getElementById("statusMsg").innerText = "✅ Booking confirmed!";
+        setTimeout(() => { document.getElementById("donationPopup").style.display = "none"; }, 2000);
+    }
 }
 //✅TRUSTEE
 function openTrusteePage() {
@@ -711,36 +714,27 @@ function closeTrusteePage() {
 
     document.getElementById("title").innerText = "ಶ್ರೀ ನಾಗಬ್ರಹ್ಮ ರಕ್ತೇಶ್ವರಿ ಮೂಲಸ್ಥಾನ";
 }
-function saveTrusteeData() {
-
-    let data = {};
-
+async function saveTrusteeData() {
     for (let i = 1; i <= 6; i++) {
-
         let el = document.getElementById("m" + i + "-desc");
-
         if (el) {
-            data["member" + i] = el.innerText;
+            await fetch("/save_trustee", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    member_number: i,
+                    description: el.innerText
+                })
+            });
         }
     }
-
-    localStorage.setItem("trusteeData", JSON.stringify(data));
 }
-function loadTrusteeData() {
-
-    let stored = localStorage.getItem("trusteeData");
-
-    if (!stored) return;
-
-    let data = JSON.parse(stored);
-
-    for (let i = 1; i <= 6; i++) {
-
-        let el = document.getElementById("m" + i + "-desc");
-
-        if (el && data["member" + i]) {
-            el.innerText = data["member" + i];
-        }
+async function loadTrusteeData() {
+    let res = await fetch("/get_trustees");
+    let rows = await res.json();
+    for (let row of rows) {
+        let el = document.getElementById("m" + row.member_number + "-desc");
+        if (el && row.description) el.innerText = row.description;
     }
 }
 //✅FAMILY TREE
@@ -861,61 +855,46 @@ function addMember(prefix) {
     hideEmptyMembers();
 }
 
-function saveFamilyData() {
-
-    let data = {};
-
+async function saveFamilyData() {
     for (let f = 1; f <= 6; f++) {
-
-        data["family" + f] = {
-            title: "",
-            members: []
-        };
-
         let title = document.getElementById("family" + f + "-title");
-        if (title) {
-            data["family" + f].title = title.innerText;
-        }
-
+        let familyName = title ? title.innerText : "ಕುಟುಂಬ " + f;
+        let members = [];
         for (let i = 1; i <= 15; i++) {
-
             let el = document.getElementById("f" + f + "m" + i);
-
-            if (el) {
-                data["family" + f].members.push(el.innerText);
-            }
+            if (el) members.push(el.innerText.trim());
         }
+        await fetch("/save_family", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                family_number: f,
+                family_name: familyName,
+                members: members
+            })
+        });
     }
-
-    localStorage.setItem("familyData", JSON.stringify(data));
 }
-function loadFamilyData() {
-
-    let stored = localStorage.getItem("familyData");
-
-    if (!stored) return;
-
-    let data = JSON.parse(stored);
-
+async function loadFamilyData() {
+    let res = await fetch("/get_families");
+    let rows = await res.json();
+    // Group by family_number
+    let grouped = {};
+    for (let row of rows) {
+        let f = row.family_number;
+        if (!grouped[f]) grouped[f] = { title: row.family_name, members: [] };
+        if (row.member_name) grouped[f].members.push(row.member_name);
+    }
     for (let f = 1; f <= 6; f++) {
-
-        let family = data["family" + f];
-
+        let family = grouped[f];
         if (!family) continue;
-
         let title = document.getElementById("family" + f + "-title");
-        if (title) title.innerText = family.title;
-
-        for (let i = 1; i <= 15; i++) {
-
-            let el = document.getElementById("f" + f + "m" + i);
-
-            if (el && family.members[i-1] !== undefined) {
-                el.innerText = family.members[i-1];
-            }
+        if (title && family.title) title.innerText = family.title;
+        for (let i = 0; i < family.members.length && i < 15; i++) {
+            let el = document.getElementById("f" + f + "m" + (i+1));
+            if (el) el.innerText = family.members[i];
         }
     }
-
     hideEmptyMembers();
 }
 function openFamilyPage() {
@@ -996,48 +975,35 @@ function loadFamilyMembersToDropdown() {
         }
     }
 }
-function loadPanchamiTable() {
-
+async function loadPanchamiTable() {
     let tbody = document.getElementById("panchamiBody");
     tbody.innerHTML = "";
-
-    let stored = localStorage.getItem("familyData");
-    if (!stored) return;
-
-    let data = JSON.parse(stored);
-
-let count = 1;
-
-for (let f = 1; f <= 6; f++) {
-
-    let family = data["family" + f];
-    if (!family) continue;
-
-    for (let member of family.members) {
-
-        if (member && member.trim() !== "") {
-
+    let res = await fetch("/get_families");
+    let rows = await res.json();
+    let grouped = {};
+    for (let row of rows) {
+        let f = row.family_number;
+        if (!grouped[f]) grouped[f] = [];
+        if (row.member_name && row.member_name.trim()) grouped[f].push(row.member_name);
+    }
+    let count = 1;
+    for (let f = 1; f <= 6; f++) {
+        let members = grouped[f] || [];
+        for (let member of members) {
             let row = "<tr>";
-
-            row += "<td>" + count + "</td>";   // ✅ Serial No
+            row += "<td>" + count + "</td>";
             count++;
-
             row += "<td>" + f + "</td>";
             row += `<td onclick="editCell(this)">${member}</td>`;
             row += `<td onclick="editCell(this)">---</td>`;
-
             for (let y = 2018; y <= 2028; y++) {
                 row += `<td onclick="togglePayment(this)">❌</td>`;
             }
-
             row += "</tr>";
-
             tbody.innerHTML += row;
         }
     }
-}
-
-    loadPaymentStatus();   // ✅ ONLY ONE CALL
+    await loadPaymentStatus();
 }
 
 function togglePayment(cell) {
@@ -1057,53 +1023,47 @@ function togglePayment(cell) {
 
     savePaymentStatus();
 }
-function savePaymentStatus() {
-
+async function savePaymentStatus() {
     let table = document.getElementById("panchamiTable");
-
-    let data = [];
-
     for (let i = 1; i < table.rows.length; i++) {
-
         let row = table.rows[i];
-        let rowData = [];
-
-        for (let j = 0; j < row.cells.length; j++) {
-            rowData.push(row.cells[j].innerText);
+        let memberName = row.cells[2].innerText;
+        let familyNum = parseInt(row.cells[1].innerText);
+        let years = [2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028];
+        for (let j = 0; j < years.length; j++) {
+            let cell = row.cells[4 + j];
+            let paid = cell.innerText === "✅";
+            await fetch("/save_payment", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    member_name: memberName,
+                    family_number: familyNum,
+                    year: years[j],
+                    paid: paid
+                })
+            });
         }
-
-        data.push(rowData);
     }
-
-    localStorage.setItem("panchamiData", JSON.stringify(data));
 }
-function loadPaymentStatus() {
-
-    let stored = localStorage.getItem("panchamiData");
-    if (!stored) return;
-
-    let data = JSON.parse(stored);
+async function loadPaymentStatus() {
+    let res = await fetch("/get_payments");
+    let payments = await res.json();
     let table = document.getElementById("panchamiTable");
-
+    let years = [2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028];
     for (let i = 1; i < table.rows.length; i++) {
-
         let row = table.rows[i];
-
-        for (let j = 4; j < row.cells.length; j++) {
-
-            let value = data[i-1] && data[i-1][j];
-
-            // ✅ FIX: handle undefined
-            if (!value || value === "undefined") {
-                value = "❌";
-            }
-
-            row.cells[j].innerText = value;
-
-            if (value === "✅") {
-                row.cells[j].style.color = "green";
+        let memberName = row.cells[2].innerText;
+        for (let j = 0; j < years.length; j++) {
+            let year = years[j];
+            let payment = payments.find(p => p.member_name === memberName && p.year === year);
+            let cell = row.cells[4 + j];
+            if (payment && payment.paid) {
+                cell.innerText = "✅";
+                cell.style.color = "green";
             } else {
-                row.cells[j].style.color = "red";
+                cell.innerText = "❌";
+                cell.style.color = "red";
             }
         }
     }
@@ -1238,14 +1198,5 @@ function openPassword() {
 
 </div>
 </div>
-<script>
-let slides = document.querySelectorAll(".slide");
-let current = 0;
-setInterval(() => {
-    slides[current].classList.remove("active");
-    current = (current + 1) % slides.length;
-    slides[current].classList.add("active");
-}, 3500);
-</script>
 </body>
 </html>
