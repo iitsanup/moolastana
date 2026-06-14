@@ -1,0 +1,22 @@
+{
+    "families": [
+        {
+            "name": "Anup kumar H",
+            "place": "Mangalore",
+            "contact": "8951712271",
+            "paid": false
+        },
+        {
+            "name": "Aswaresh",
+            "place": "kerala",
+            "contact": "3284723974",
+            "paid": false
+        },
+        {
+            "name": "Aswaresh",
+            "place": "kerala",
+            "contact": "3284723974",
+            "paid": false
+        }
+    ]
+}

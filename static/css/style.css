@@ -1,0 +1,431 @@
+/* BODY BACKGROUND */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+
+    background-color: black;
+    background-image: url("/static/images/temple.jpg");
+
+    background-size: 100%;
+    background-position: center 35%;
+    background-repeat: no-repeat;
+
+    height: 100vh;
+}
+
+/* TITLE */
+#title {
+    font-size: 42px;        /* ✅ increase size */
+
+    text-align: center;     /* ✅ center text */
+
+    display: block;         /* ✅ ensures full width */
+
+    margin: 20px auto;      /* ✅ center alignment */
+
+    color: #FFD700;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    background: rgba(0,0,0,0.5);
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+
+/* MENU */
+
+/* MENU */
+.menu {
+    position: absolute;
+    bottom: 30px;
+    width: 55%;
+    left: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+
+/* MENU ITEMS */
+.menu-item {
+    text-align: center;
+    color: orange;
+    cursor: pointer;
+}
+
+/* ICONS */
+.menu-item img {
+    width: 90px;
+    height: 90px;
+
+    border-radius: 50%;
+    padding: 10px;
+
+    background: white;
+    object-fit: contain;
+
+    /* ✅ Glow effect */
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.7),
+                0 0 20px rgba(255, 165, 0, 0.5);
+}
+/* HOVER EFFECT */
+.menu-item img:hover {
+    transform: scale(1.1);
+
+    box-shadow: 0 0 15px orange,
+                0 0 30px orange,
+                0 0 45px gold;
+}
+
+
+/* POPUP */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0,0,0,0.9);
+}
+
+.popup-content {
+    display: block;
+    margin: auto;
+    margin-top: 50px;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+.menu-item p {
+    font-size: 25px;   /* increase this value */
+    font-weight: bold; /* optional - makes it bold */
+    margin-top: 5px;
+}
+.lang-switch {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.lang-switch button {
+    padding: 5px 10px;
+    margin-left: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+/* NAV BUTTONS */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    font-size: 40px;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.prev {
+    left: 20px;
+}
+
+.next {
+    right: 20px;
+}
+
+.prev:hover, .next:hover {
+    color: gold;
+}
+.form-box {
+    background: white;
+    padding: 20px;
+    margin: 50px auto;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-box input, .form-box select {
+    margin: 5px 0;
+    padding: 8px;
+}
+
+.form-box h2 {
+    text-align: center;
+}
+
+#statusMsg {
+    margin-top: 10px;
+    font-weight: bold;
+}
+.member-login {
+    position: absolute;
+    top: 55px;
+    right: 20px;
+    background: gold;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.tabs button {
+    margin: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+
+
+/* LIST */
+ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+.admin-box {
+    background: linear-gradient(white, #f8f8f8);
+}
+.address {
+    position: fixed !important;   /* ✅ force fixed positioning */
+    right: 20px;
+    bottom: 20px;
+
+    font-size: 14px;
+    color: brown;
+    text-align: right;
+
+    z-index: 999;   /* ✅ bring above everything */
+}
+
+
+.header {
+    display: block;   /* ✅ remove flex */
+    text-align: center;
+}
+.member-login {
+    background: orange;
+    color: black;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.seva-card {
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+
+.seva-card h3 {
+    color: #8B4513;
+}
+.seva-card p {
+    color: #8B4513;
+    background: rgba(255,255,255,0.85);  /* optional for contrast */
+    padding: 8px;
+    border-radius: 6px;
+}
+#sevaSection {
+    width: 50%;
+    margin-left: 20px;
+
+    margin-top: -20px;   /* ✅ lift upward */
+
+    color: white;
+}
+
+.edit-btn {
+    margin-top: 5px;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    background: #0056b3;
+}
+.close {
+    cursor: pointer;
+    font-size: 20px;
+    color: red;
+}
+#sevaSection {
+    width: 50%;
+    margin-left: 20px;
+
+    margin-top: -30px;   /* ✅ lift upward */
+
+    color: white;
+}
+.seva-card button {
+    margin-top: 10px;
+    padding: 8px 12px;
+
+    background: #8B4513;   /* brown */
+    color: white;
+
+    border: none;
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.seva-card button:hover {
+    background: #5C4033;
+}
+.trustee-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.trustee-card {
+    width: 180px;        /* ✅ compact left layout */
+    text-align: center;
+
+    background: rgba(0,0,0,0.6);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.trustee-img {
+    width: 120px;
+    height: 120px;
+
+    border-radius: 50%;   /* ✅ round photo */
+
+    object-fit: cover;
+    border: 3px solid #8B4513;
+}
+#trusteeSection {
+    width: 50%;          /* ✅ left half */
+    margin-left: 20px;   /* ✅ spacing from left */
+
+    color: white;
+
+    margin-top: -20px;   /* ✅ lift up (same as seva) */
+}
+
+.family-container {
+    display: flex;
+
+    flex-direction: row;      /* ✅ single row */
+
+    justify-content: space-between;  /* ✅ spread full width */
+
+    align-items: flex-start;
+
+    width: 100%;             /* ✅ full page */
+
+    padding: 10px;
+
+    box-sizing: border-box;
+}
+.family-card {
+    width: 15%;
+
+    text-align: center;   /* ✅ THIS LINE DOES THE MAGIC */
+
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+.family-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.family-card h3 {
+    color: #8B4513;
+
+    font-weight: bold;
+
+    font-size: 20px;
+
+    padding-bottom: 5px;
+
+    border-bottom: 1px solid #ddd;   /* ✅ line under title */
+
+    margin-bottom: 10px;
+}
+.members {
+    margin-top: 10px;
+}
+
+.member:hover {
+    background: #ddd;
+    cursor: pointer;
+}
+.members p:first-child {
+    font-weight: bold;     /* ✅ make first member bold */
+
+    margin-top: 5px;       /* ✅ spacing from title */
+
+    color: #000;           /* ✅ optional: strong text */
+}
+.donation-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.donation-card {
+    text-align: center;
+    cursor: pointer;
+}
+
+.donation-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: white;
+    padding: 10px;
+}
+
+.donation-card p {
+    color: #8B4513;   /* ✅ same brown theme */
+}.year-tabs {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.year-tabs button {
+    padding: 10px 20px;
+    margin: 10px;
+
+    font-size: 16px;
+
+    background: #8B4513;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.year-tabs button:hover {
+    background: #5C4033;
+}
+.admin-only {
+    border: 2px solid #8B4513;
+}

@@ -1,0 +1,32 @@
+<h2>Admin Dashboard</h2>
+
+<a href="/logout">Logout</a>
+
+<h3>Add Family</h3>
+<form method="POST" action="/add_family">
+    <input name="name" placeholder="Family Name">
+    <input name="place" placeholder="Place">
+    <input name="contact" placeholder="Contact">
+    <button>Add</button>
+</form>
+
+<h3>Add Expense</h3>
+<form method="POST" action="/add_expense">
+    <input name="desc" placeholder="Expense">
+    <input name="amount" placeholder="Amount">
+    <button>Add</button>
+</form>
+
+<h3>Family List</h3>
+<ul>
+{% for f in data.families %}
+    <li>{{ f.name }} - {{ f.place }}</li>
+{% endfor %}
+</ul>
+
+<h3>Expenses</h3>
+<ul>
+{% for e in data.expenses %}
+    <li>{{ e.desc }} - ₹{{ e.amount }}</li>
+{% endfor %}
+</ul>

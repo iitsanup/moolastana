@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shri Moolasthana Manjeshwara Temple</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+<div class="member-login" id="loginBtn" onclick="openMemberLogin()">
+    👤 Member Login
+</div>
+
+    <!-- ✅TITLE -->
+<div class="header">
+    <h1 id="title">ಶ್ರೀ ನಾಗಬ್ರಹ್ಮ ರಕ್ತೇಶ್ವರಿ ಮೂಲಸ್ಥಾನ</h1>
+  
+<p id="address-kn" class="address">
+    ಕಟ್ಟೆ ಬಜಾರ್, ಬಂಗ್ರಾ ಮಂಜೇಶ್ವರ - ೬೭೧೩೨೩
+</p>
+
+</div>
+
+    <!-- ✅MENU -->
+    <div class="menu" id="menuSection">
+        <div class="menu-item" onclick="openTrusteePage()">
+            <img src="{{ url_for('static', filename='images/committee.png') }}">
+            <p id="committee">ಟ್ರಸ್ಟಿ</p>
+        </div>
+        <div class="menu-item" onclick="openFamilyPage()">
+            <img src="{{ url_for('static', filename='images/kutumba.png') }}">
+            <p id="kutumba">ಕುಟುಂಬ ವೃಕ್ಷ</p>
+        </div>
+	<div class="menu-item" onclick="openEventsPage()">
+  	    <img src="{{ url_for('static', filename='images/events.png') }}">
+    	    <p id="events">ಕಾರ್ಯಕ್ರಮಗಳು</p>
+	</div>
+
+        <div class="menu-item" onclick="openSevaPage()">
+             <img src="{{ url_for('static', filename='images/pooja.png') }}">
+            <p id="pooja">ಸೇವೆ</p>
+        </div>
+
+	<div class="menu-item" onclick="openDonationListPage()">
+       	     <img src="{{ url_for('static', filename='images/donation.png') }}">
+             <p>ದಾನ ಪಟ್ಟಿ</p>
+	</div>
+        <div class="menu-item" onclick="openImageGallery()">
+            <img src="{{ url_for('static', filename='images/gallery.png') }}">
+            <p id="gallery">ಫೋಟೋ ಗ್ಯಾಲರಿ</p>
+            </div>
+       <div class="menu-item">
+            <a href="https://maps.app.goo.gl/Gu9zf5zMXX6EHfX66"
+            target="_blank">
+            <img src="{{ url_for('static', filename='images/location.png') }}">
+            </a>
+            <p id="location">ಸ್ಥಳ</p>
+            </div>
+	<div class="menu-item admin-only" style="display:none;" onclick="openAdminPage()">
+            <img src="{{ url_for('static', filename='images/settings.png') }}">
+            <p>ನಿರ್ವಹಣೆ</p>
+</div>
+
+
+</div>   <!-- ✅ CLOSE MENU HERE -->
+
+<!-- ✅ SEVA SECTION -->
+<div id="sevaSection" style="display:none;">
+
+    <button onclick="closeSevaPage()" style="margin:20px;">
+        ⬅ ಹಿಂದಿರುಗಿ
+    </button>
+
+      <!-- ✅PANCHAMI -->
+    <div class="seva-card">
+        <h3>ವಾರ್ಷಿಕ ಪಂಚಮಿ ಪೂಜೆ ಸೇವೆ</h3>
+
+        <p id="panchami-desc">
+            ವಾರ್ಷಿಕ ಪಂಚಮಿ ಪೂಜೆ ದೇವಸ್ಥಾನದ ಸಾಂಪ್ರದಾಯಿಕ ಆಚರಣೆಗಳಲ್ಲಿ ಪ್ರಮುಖವಾಗಿದೆ.
+            ಎಲ್ಲಾ ಕುಟುಂಬಗಳು ಈ ಪೂಜೆಯಲ್ಲಿ ಭಾಗವಹಿಸುತ್ತಾರೆ ಮತ್ತು ಪ್ರತಿ ವರ್ಷ ನಿಗದಿತ ಕೊಡುಗೆ ನೀಡಲಾಗುತ್ತದೆ.
+
+            ಈ ಸೇವೆಯಿಂದ ಕುಟುಂಬಕ್ಕೆ ಆರೋಗ್ಯ, ಶಾಂತಿ ಮತ್ತು ಸಮೃದ್ಧಿ ದೊರೆಯುತ್ತದೆ ಎಂದು ನಂಬಲಾಗಿದೆ.
+        </p>
+
+        <button class="edit-btn" style="display:none;"
+            onclick="editText('panchami-desc')">
+            ಸಂಪಾದನೆ
+        </button>
+	<button onclick="bookSeva('panchami')">
+   	 📌 ಬುಕ್ ಮಾಡಿ
+	</button>
+    </div>
+
+    <!--✅ THAMBILA -->
+    <div class="seva-card">
+        <h3>ತಂಬಿಲ ಸೇವೆ</h3>
+
+        <p id="thambila-desc">
+            ತಂಬಿಲ ಸೇವೆ ಒಂದು ಪಾರಂಪರಿಕ ದೈವಿಕ ಪೂಜೆ ಆಗಿದ್ದು, ವಿಶೇಷ ಸಂದರ್ಭಗಳಲ್ಲಿ ನೆರವೇರಿಸಲಾಗುತ್ತದೆ.
+
+            ಭಕ್ತರು ತಮ್ಮ ಇಚ್ಛೆಯಂತೆ ಈ ಸೇವೆಯನ್ನು ಮಾಡಿಸಬಹುದು.
+            ಈ ಪೂಜೆಯಿಂದ ಆಶೀರ್ವಾದ ಮತ್ತು ಮನಶಾಂತಿ ದೊರೆಯುತ್ತದೆ.
+        </p>
+
+        <button class="edit-btn" style="display:none;"
+            onclick="editText('thambila-desc')">
+            ಸಂಪಾದನೆ
+        </button>
+	<button onclick="bookSeva('thambila')">
+   	 📌 ಬುಕ್ ಮಾಡಿ
+	</button>
+    </div>
+
+    <!-- ✅ANNADANA -->
+    <div class="seva-card">
+        <h3>ಅನ್ನಸಂತರ್ಪಣೆ ಸೇವೆ</h3>
+
+        <p id="anna-desc">
+            ಅನ್ನಸಂತರ್ಪಣೆ ಸೇವೆಯು ಭಕ್ತರಿಗೆ ಭೋಜನ ವಿತರಿಸುವ ಮಹತ್ವದ ಸೇವೆಯಾಗಿದೆ.
+
+            ಇದು ಪೂಜೆಯ ನಂತರ ಭಕ್ತರಿಗೆ ನಡೆಸಲಾಗುತ್ತದೆ ಮತ್ತು ಸಮಾಜ ಸೇವೆಯೂ ಆಗಿದೆ.
+            ಅನ್ನದಾನವು ಅತ್ಯಂತ ಪುಣ್ಯಕರ ಕಾರ್ಯವೆಂದು ಪರಿಗಣಿಸಲಾಗಿದೆ.
+        </p>
+
+        <button class="edit-btn" style="display:none;"
+            onclick="editText('anna-desc')">
+            ಸಂಪಾದನೆ
+        </button>
+	<button onclick="bookSeva('annasantharpana')"> 
+        📌 ಬುಕ್ ಮಾಡಿ
+        </button>
+    </div>
+ </div>
+<!-- ✅ TRUSTEE SECTION -->
+<div id="trusteeSection" style="display:none;">
+
+    <button onclick="closeTrusteePage()" style="margin:20px;">
+        ⬅ ಹಿಂದಿರುಗಿ
+    </button>
+
+    <div class="trustee-container">
+
+        <!-- ✅MEMBER 1 -->
+        <div class="trustee-card">
+            <img src="/static/images/member1.jpg" class="trustee-img">
+            <h3>ಸದಸ್ಯ 1</h3>
+            <p id="m1-desc">ವಿವರ ಇಲ್ಲಿ ಬರಲಿದೆ</p>
+            <button class="edit-btn" style="display:none;" onclick="editText('m1-desc')">ಸಂಪಾದನೆ</button>
+        </div>
+
+        <!-- ✅MEMBER 2 -->
+        <div class="trustee-card">
+            <img src="/static/images/member2.jpg" class="trustee-img">
+            <h3>ಸದಸ್ಯ 2</h3>
+            <p id="m2-desc">ವಿವರ ಇಲ್ಲಿ ಬರಲಿದೆ</p>
+            <button class="edit-btn" style="display:none;" onclick="editText('m2-desc')">ಸಂಪಾದನೆ</button>
+        </div>
+
+        <!-- ✅MEMBER 3 -->
+        <div class="trustee-card">
+            <img src="/static/images/member3.jpg" class="trustee-img">
+            <h3>ಸದಸ್ಯ 3</h3>
+            <p id="m3-desc">ವಿವರ ಇಲ್ಲಿ ಬರಲಿದೆ</p>
+            <button class="edit-btn" style="display:none;" onclick="editText('m3-desc')">ಸಂಪಾದನೆ</button>
+        </div>
+
+        <!-- ✅MEMBER 4 -->
+        <div class="trustee-card">
+            <img src="/static/images/member4.jpg" class="trustee-img">
+            <h3>ಸದಸ್ಯ 4</h3>
+            <p id="m4-desc">ವಿವರ ಇಲ್ಲಿ ಬರಲಿದೆ</p>
+            <button class="edit-btn" style="display:none;" onclick="editText('m4-desc')">ಸಂಪಾದನೆ</button>
+        </div>
+
+        <!-- ✅MEMBER 5 -->
+        <div class="trustee-card">
+            <img src="/static/images/member5.jpg" class="trustee-img">
+            <h3>ಸದಸ್ಯ 5</h3>
+            <p id="m5-desc">ವಿವರ ಇಲ್ಲಿ ಬರಲಿದೆ</p>
+            <button class="edit-btn" style="display:none;" onclick="editText('m5-desc')">ಸಂಪಾದನೆ</button>
+        </div>
+
+        <!-- ✅MEMBER 6 -->
+        <div class="trustee-card">
+            <img src="/static/images/member6.jpg" class="trustee-img">
+            <h3>ಸದಸ್ಯ 6</h3>
+            <p id="m6-desc">ವಿವರ ಇಲ್ಲಿ ಬರಲಿದೆ</p>
+            <button class="edit-btn" style="display:none;" onclick="editText('m6-desc')">ಸಂಪಾದನೆ</button>
+        </div>
+
+    </div>
+</div>
+<!-- ✅ FAMILY TREE SECTION -->
+<div id="familySection" style="display:none; background:#f5f5dc; min-height:100vh; padding:20px;">
+
+    <button onclick="closeFamilyPage()">⬅ ಹಿಂದಿರುಗಿ</button>
+   
+    <div class="family-container">
+
+<!-- ✅ REPEAT LOOP -->
+<!-- ✅FAMILY 1 -->
+<div class="family-card">
+    <h3 id="family1-title">ಕುಟುಂಬ 1</h3>
+    <button class="add-btn" style="display:none;" onclick="addMember('f1m')">
+    ➕ ಸದಸ್ಯ ಸೇರಿಸಿ
+</button>
+
+    <div class="members">
+        <p id="f1m1" class="member" onclick="editSingle('f1m1')"></p>
+        <p id="f1m2" class="member" onclick="editSingle('f1m2')"></p>
+        <p id="f1m3" class="member" onclick="editSingle('f1m3')"></p>
+        <p id="f1m4" class="member" onclick="editSingle('f1m4')"></p>
+        <p id="f1m5" class="member" onclick="editSingle('f1m5')"></p>
+        <p id="f1m6" class="member" onclick="editSingle('f1m6')"></p>
+        <p id="f1m7" class="member" onclick="editSingle('f1m7')"></p>
+        <p id="f1m8" class="member" onclick="editSingle('f1m8')"></p>
+        <p id="f1m9" class="member" onclick="editSingle('f1m9')"></p>
+        <p id="f1m10" class="member" onclick="editSingle('f1m10')"></p>
+        <p id="f1m11" class="member" onclick="editSingle('f1m11')"></p>
+        <p id="f1m12" class="member" onclick="editSingle('f1m12')"></p>
+        <p id="f1m13" class="member" onclick="editSingle('f1m13')"></p>
+        <p id="f1m14" class="member" onclick="editSingle('f1m14')"></p>
+        <p id="f1m15" class="member" onclick="editSingle('f1m15')"></p>
+    </div>
+   </div>
+<!-- ✅FAMILY 2 -->
+<div class="family-card">
+       <h3 id="family2-title">ಕುಟುಂಬ 2</h3>
+    <button class="add-btn" style="display:none;" onclick="addMember('f2m')">
+    ➕ ಸದಸ್ಯ ಸೇರಿಸಿ
+</button>
+
+    <div class="members">
+        <p id="f2m1" class="member" onclick="editSingle('f2m1')"></p>
+        <p id="f2m2" class="member" onclick="editSingle('f2m2')"></p>
+        <p id="f2m3" class="member" onclick="editSingle('f2m3')"></p>
+        <p id="f2m4" class="member" onclick="editSingle('f2m4')"></p>
+        <p id="f2m5" class="member" onclick="editSingle('f2m5')"></p>
+        <p id="f2m6" class="member" onclick="editSingle('f2m6')"></p>
+        <p id="f2m7" class="member" onclick="editSingle('f2m7')"></p>
+        <p id="f2m8" class="member" onclick="editSingle('f2m8')"></p>
+        <p id="f2m9" class="member" onclick="editSingle('f2m9')"></p>
+        <p id="f2m10" class="member" onclick="editSingle('f2m10')"></p>
+        <p id="f2m11" class="member" onclick="editSingle('f2m11')"></p>
+        <p id="f2m12" class="member" onclick="editSingle('f2m12')"></p>
+        <p id="f2m13" class="member" onclick="editSingle('f2m13')"></p>
+        <p id="f2m14" class="member" onclick="editSingle('f2m14')"></p>
+        <p id="f2m15" class="member" onclick="editSingle('f2m15')"></p>
+    </div>
+   </div>
+<!-- ✅FAMILY 3 -->
+<div class="family-card">
+       <h3 id="family3-title">ಕುಟುಂಬ 3</h3>
+    <button class="add-btn" style="display:none;" onclick="addMember('f3m')">
+    ➕ ಸದಸ್ಯ ಸೇರಿಸಿ
+</button>
+
+    <div class="members">
+        <p id="f3m1" class="member" onclick="editSingle('f3m1')"></p>
+        <p id="f3m2" class="member" onclick="editSingle('f3m2')"></p>
+        <p id="f3m3" class="member" onclick="editSingle('f3m3')"></p>
+        <p id="f3m4" class="member" onclick="editSingle('f3m4')"></p>
+        <p id="f3m5" class="member" onclick="editSingle('f3m5')"></p>
+        <p id="f3m6" class="member" onclick="editSingle('f3m6')"></p>
+        <p id="f3m7" class="member" onclick="editSingle('f3m7')"></p>
+        <p id="f3m8" class="member" onclick="editSingle('f3m8')"></p>
+        <p id="f3m9" class="member" onclick="editSingle('f3m9')"></p>
+        <p id="f3m10" class="member" onclick="editSingle('f3m10')"></p>
+        <p id="f3m11" class="member" onclick="editSingle('f3m11')"></p>
+        <p id="f3m12" class="member" onclick="editSingle('f3m12')"></p>
+        <p id="f3m13" class="member" onclick="editSingle('f3m13')"></p>
+        <p id="f3m14" class="member" onclick="editSingle('f3m14')"></p>
+        <p id="f3m15" class="member" onclick="editSingle('f3m15')"></p>
+    </div>
+   </div>
+<!-- ✅FAMILY 4 -->
+<div class="family-card">
+        <h3 id="family4-title">ಕುಟುಂಬ 4</h3>
+    <button class="add-btn" style="display:none;" onclick="addMember('f4m')">
+    ➕ ಸದಸ್ಯ ಸೇರಿಸಿ
+</button>
+
+    <div class="members">
+        <p id="f4m1" class="member" onclick="editSingle('f4m1')"></p>
+        <p id="f4m2" class="member" onclick="editSingle('f4m2')"></p>
+        <p id="f4m3" class="member" onclick="editSingle('f4m3')"></p>
+        <p id="f4m4" class="member" onclick="editSingle('f4m4')"></p>
+        <p id="f4m5" class="member" onclick="editSingle('f4m5')"></p>
+        <p id="f4m6" class="member" onclick="editSingle('f4m6')"></p>
+        <p id="f4m7" class="member" onclick="editSingle('f4m7')"></p>
+        <p id="f4m8" class="member" onclick="editSingle('f4m8')"></p>
+        <p id="f4m9" class="member" onclick="editSingle('f4m9')"></p>
+        <p id="f4m10" class="member" onclick="editSingle('f4m10')"></p>
+        <p id="f4m11" class="member" onclick="editSingle('f4m11')"></p>
+        <p id="f4m12" class="member" onclick="editSingle('f4m12')"></p>
+        <p id="f4m13" class="member" onclick="editSingle('f4m13')"></p>
+        <p id="f4m14" class="member" onclick="editSingle('f4m14')"></p>
+        <p id="f4m15" class="member" onclick="editSingle('f4m15')"></p>
+    </div>
+   </div>
+  <!-- ✅FAMILY 5 -->
+<div class="family-card">
+       <h3 id="family5-title">ಕುಟುಂಬ 5</h3>
+    <button class="add-btn" style="display:none;" onclick="addMember('f5m')">
+    ➕ ಸದಸ್ಯ ಸೇರಿಸಿ
+</button>
+
+    <div class="members">
+        <p id="f5m1" class="member" onclick="editSingle('f5m1')"></p>
+        <p id="f5m2" class="member" onclick="editSingle('f5m2')"></p>
+        <p id="f5m3" class="member" onclick="editSingle('f5m3')"></p>
+        <p id="f5m4" class="member" onclick="editSingle('f5m4')"></p>
+        <p id="f5m5" class="member" onclick="editSingle('f5m5')"></p>
+        <p id="f5m6" class="member" onclick="editSingle('f5m6')"></p>
+        <p id="f5m7" class="member" onclick="editSingle('f5m7')"></p>
+        <p id="f5m8" class="member" onclick="editSingle('f5m8')"></p>
+        <p id="f5m9" class="member" onclick="editSingle('f5m9')"></p>
+        <p id="f5m10" class="member" onclick="editSingle('f5m10')"></p>
+        <p id="f5m11" class="member" onclick="editSingle('f5m11')"></p>
+        <p id="f5m12" class="member" onclick="editSingle('f5m12')"></p>
+        <p id="f5m13" class="member" onclick="editSingle('f5m13')"></p>
+        <p id="f5m14" class="member" onclick="editSingle('f5m14')"></p>
+        <p id="f5m15" class="member" onclick="editSingle('f5m15')"></p>
+    </div>
+   </div>
+   <!-- ✅FAMILY 6 -->
+<div class="family-card">
+        <h3 id="family6-title">ಕುಟುಂಬ 6</h3>
+    <button class="add-btn" style="display:none;" onclick="addMember('f6m')">
+    ➕ ಸದಸ್ಯ ಸೇರಿಸಿ
+</button>
+
+    <div class="members">
+        <p id="f6m1" class="member" onclick="editSingle('f6m1')"></p>
+        <p id="f6m2" class="member" onclick="editSingle('f6m2')"></p>
+        <p id="f6m3" class="member" onclick="editSingle('f6m3')"></p>
+        <p id="f6m4" class="member" onclick="editSingle('f6m4')"></p>
+        <p id="f6m5" class="member" onclick="editSingle('f6m5')"></p>
+        <p id="f6m6" class="member" onclick="editSingle('f6m6')"></p>
+        <p id="f6m7" class="member" onclick="editSingle('f6m7')"></p>
+        <p id="f6m8" class="member" onclick="editSingle('f6m8')"></p>
+        <p id="f6m9" class="member" onclick="editSingle('f6m9')"></p>
+        <p id="f6m10" class="member" onclick="editSingle('f6m10')"></p>
+        <p id="f6m11" class="member" onclick="editSingle('f6m11')"></p>
+        <p id="f6m12" class="member" onclick="editSingle('f6m12')"></p>
+        <p id="f6m13" class="member" onclick="editSingle('f6m13')"></p>
+        <p id="f6m14" class="member" onclick="editSingle('f6m14')"></p>
+        <p id="f6m15" class="member" onclick="editSingle('f6m15')"></p>
+    </div>
+   </div>
+ </div>
+</div>    
+ <div id="memberPopup" class="popup">
+    <div class="form-box">
+        <span class="close" onclick="closeMemberLogin()">✖</span>
+
+        <h3>Member Login</h3>
+
+        <input type="text" id="memberUser" placeholder="Username">
+        <input type="password" id="memberPass" placeholder="Password">
+
+        <button onclick="loginMember()">Login</button>
+
+        <p id="loginMsg"></p>
+    </div>
+</div>
+
+        <!-- PANCHAMI -->
+
+ <!-- PHOTO GALLERY POPUP -->
+<div id="galleryPopup" class="popup">
+
+    <span class="close" onclick="closeGallery()">&times;</span>
+
+    <img class="popup-content" id="galleryImg">
+
+    <a class="prev" onclick="changeImage(-1)">❮</a>
+    <a class="next" onclick="changeImage(1)">❯</a>
+
+</div>
+<!-- ✅ DONATION LIST SECTION -->
+<div id="donationListSection" style="display:none; background:#f5f5dc; min-height:100vh; padding:20px; color:black;">
+
+    <button onclick="closeDonationListPage()">⬅ ಹಿಂದಿರುಗಿ</button>
+
+    <div class="donation-container">
+
+        <!-- ✅ PANCHAMI -->
+        <div class="donation-card" onclick="openPanchamiList()">
+            <img src="/static/images/panchami.png">
+            <p>Annual Panchami Donors</p>
+        </div>
+
+        <!-- ✅ ANNADANA -->
+        <div class="donation-card" onclick="openAnnadanaList()">
+            <img src="/static/images/annadana.png">
+            <p>Annasantarpana Donors</p>
+        </div>
+
+        <!-- ✅ GENERAL -->
+        <div class="donation-card" onclick="openGeneralDonationList()">
+            <img src="/static/images/general.png">
+            <p>General Donations</p>
+        </div>
+
+    </div>
+
+</div>
+<!-- ✅ PANCHAMI DONOR PAGE -->
+
+<div id="panchamiSection" style="display:none; background:#f5f5dc; min-height:100vh; padding:20px;">
+<div style="text-align:center; margin:15px;">
+
+    <input type="text" id="searchInput"
+        placeholder="🔍 ಸದಸ್ಯರನ್ನು ಹುಡುಕಿ (Search member)..."
+        onkeyup="searchTable()"
+        style="padding:8px; width:250px; border-radius:5px; border:1px solid #ccc;">
+
+</div>
+
+    <button onclick="closePanchamiPage()">⬅ ಹಿಂದಿರುಗಿ</button>
+
+    <h2 style="text-align:center;">ವಾರ್ಷಿಕ ಪಂಚಮಿ ಪಾವತಿ ವಿವರ</h2>
+
+    <div style="overflow-x:auto; margin-top:20px;">
+
+        <table id="panchamiTable" border="1"
+            style="width:100%; text-align:center; border-collapse:collapse;">
+
+            <thead>
+                <tr>
+	            <th>ಕ್ರಮ ಸಂಖ್ಯೆ</th>
+                    <th>ಕುಟುಂಬ</th>
+                    <th>ಹೆಸರು</th>
+                    <th>ಸ್ಥಳ</th>
+
+                    <th>2018</th>
+                    <th>2019</th>
+                    <th>2020</th>
+                    <th>2021</th>
+                    <th>2022</th>
+                    <th>2023</th>
+                    <th>2024</th>
+                    <th>2025</th>
+                    <th>2026</th>
+                    <th>2027</th>
+                    <th>2028</th>
+                </tr>
+            </thead>
+
+            <tbody id="panchamiBody"></tbody>
+
+        </table>
+
+    </div>
+</div>
+
+<!-- ✅ EVENTS SECTION -->
+<div id="eventsSection" 
+     style="display:none; background:#f5f5dc; min-height:100vh; padding:20px;">
+
+    <button onclick="closeEventsPage()">⬅ ಹಿಂದಿರುಗಿ</button>
+
+    <h2 style="text-align:center;">ಕಾರ್ಯಕ್ರಮಗಳು</h2>
+
+    <div class="year-tabs">
+
+        <button onclick="openEventYear('2025')">2025</button>
+        <button onclick="openEventYear('2026')">2026</button>
+
+    </div>
+
+</div>
+<!-- ✅ ADMIN PAGE -->
+<div id="adminSection" 
+     style="display:none; background:#f5f5dc; min-height:100vh; padding:20px;">
+
+    <button onclick="closeAdminPage()">⬅ ಹಿಂದಿರುಗಿ</button>
+
+    <h2 style="text-align:center;">ನಿರ್ವಹಣೆ</h2>
+
+    <div class="year-tabs">
+
+        <button onclick="openUploadEvents()">Event Upload</button>
+        <button onclick="openExpenses()">Event Expenses</button>
+        <button onclick="openGeneralData()">General Data</button>
+        <button onclick="openPassword()">Change Password</button>
+
+    </div>
+
+</div>
+    <!-- ✅ SCRIPT ✅-->
+<script>
+
+let isLoggedIn = false;
+
+function loginMember() {
+
+    let user = document.getElementById("memberUser").value;
+    let pass = document.getElementById("memberPass").value;
+
+    if (user === "admin" && pass === "1234") {
+
+        isLoggedIn = true;
+
+        document.getElementById("memberPopup").style.display = "none";
+
+        let btn = document.getElementById("loginBtn");
+
+        // ✅ CHANGE BUTTON TEXT
+        btn.innerHTML = "🚪 Logout";
+
+        // ✅ CHANGE FUNCTION
+        btn.onclick = logoutUser;
+
+        let edits = document.getElementsByClassName("edit-btn");
+        for (let b of edits) b.style.display = "inline-block";
+
+        let addBtns = document.getElementsByClassName("add-btn");
+        for (let b of addBtns) b.style.display = "inline-block";
+        let adminIcons = document.getElementsByClassName("admin-only");
+        for (let icon of adminIcons) {
+    icon.style.display = "block";
+}
+    } else {
+        document.getElementById("loginMsg").innerHTML = "❌ Invalid Login";
+    }
+}
+
+function logoutUser() {
+
+    isLoggedIn = false;
+
+    let btn = document.getElementById("loginBtn");
+
+    // ✅ RESTORE LOGIN BUTTON
+    btn.innerHTML = "👤 Member Login";
+    btn.onclick = openMemberLogin;
+
+    // ✅ HIDE EDIT BUTTONS
+    let edits = document.getElementsByClassName("edit-btn");
+    for (let b of edits) b.style.display = "none";
+
+    let addBtns = document.getElementsByClassName("add-btn");
+    for (let b of addBtns) b.style.display = "none";
+    let adminIcons = document.getElementsByClassName("admin-only");
+    for (let icon of adminIcons) {
+    icon.style.display = "none";
+}
+}
+
+window.onclick = function(event) {
+    let panel = document.getElementById("adminPanel");
+
+    if (event.target === panel) {
+        panel.style.display = "none";
+    }
+};
+
+let images = [
+    "gallery1.jpg",
+    "gallery2.jpg",
+    "gallery3.jpg",
+    "gallery4.jpg"
+];
+
+let currentIndex = 0;
+
+function openImageGallery() {
+    currentIndex = 0;
+    showImage();
+    document.getElementById("galleryPopup").style.display = "block";
+}
+
+function showImage() {
+    document.getElementById("galleryImg").src =
+        "/static/images/" + images[currentIndex];
+}
+
+function changeImage(step) {
+    currentIndex += step;
+
+    if (currentIndex >= images.length) {
+        currentIndex = 0;
+    }
+
+    if (currentIndex < 0) {
+        currentIndex = images.length - 1;
+    }
+
+    showImage();
+}
+
+function closeGallery() {
+    document.getElementById("galleryPopup").style.display = "none";
+}
+function openMemberLogin() {
+    document.getElementById("memberPopup").style.display = "block";
+}
+
+function closeMemberLogin() {
+    document.getElementById("memberPopup").style.display = "none";
+}
+
+// TAB SWITCH
+function showTab(tabName) {
+
+    let tabs = document.getElementsByClassName("tab-content");
+
+    for (let t of tabs) {
+        t.style.display = "none";
+    }
+
+    document.getElementById(tabName).style.display = "block";
+}
+
+
+// ✅LOAD AT START
+window.onload = function() {};
+
+//✅SEVA 
+
+// OPEN / CLOSE
+
+function openSevaPage() {
+
+    document.getElementById("menuSection").style.display = "none";
+    document.getElementById("sevaSection").style.display = "block";
+
+    //  Based on language
+    if (document.getElementById("address-kn").style.display !== "none") {
+        document.getElementById("title").innerText = "ಸೇವಾ ವಿವರಗಳು";
+    } else {
+        document.getElementById("title").innerText = "Seva Details";
+    }
+
+}
+function closeSevaPage() {
+
+    // Show menu
+    document.getElementById("menuSection").style.display = "";
+
+    // Hide seva section
+    document.getElementById("sevaSection").style.display = "none";
+
+    // ✅ Restore original Kannada title
+    document.getElementById("title").innerText = "ಶ್ರೀ ನಾಗಬ್ರಹ್ಮ ರಕ್ತೇಶ್ವರಿ ಮೂಲಸ್ಥಾನ";
+}
+function editText(id) {
+
+    if (!isLoggedIn) {
+        alert("Please login to edit");
+        return;
+    }
+
+    let element = document.getElementById(id);
+
+    let currentText = element.innerText;
+
+    let newText = prompt("Edit details:", currentText);
+
+    if (newText !== null && newText.trim() !== "") {
+        element.innerText = newText;
+
+        saveTrusteeData();   // ✅ ADD THIS
+    }
+}
+function bookSeva(type) {
+
+    // ✅ Show donation popup
+    document.getElementById("donationPopup").style.display = "block";
+
+    // ✅ Auto select seva type
+    let sevaType = document.getElementById("sevaType");
+
+    if (type === "panchami") {
+        sevaType.value = "panchami";
+    }
+    else if (type === "thambila") {
+        sevaType.value = "thambila";
+    }
+    else if (type === "annasantharpana") {
+        sevaType.value = "donation";
+    }
+
+    // ✅ Update form values
+    updateForm();
+}
+//✅TRUSTEE
+function openTrusteePage() {
+
+    document.getElementById("menuSection").style.display = "none";
+    document.getElementById("trusteeSection").style.display = "block";
+
+    document.getElementById("title").innerText = "ಟ್ರಸ್ಟಿ ವಿವರಗಳು";
+
+    loadTrusteeData();   // ✅ ADD THIS
+}
+
+function closeTrusteePage() {
+
+    document.getElementById("menuSection").style.display = "";
+    document.getElementById("trusteeSection").style.display = "none";
+
+    document.getElementById("title").innerText = "ಶ್ರೀ ನಾಗಬ್ರಹ್ಮ ರಕ್ತೇಶ್ವರಿ ಮೂಲಸ್ಥಾನ";
+}
+function saveTrusteeData() {
+
+    let data = {};
+
+    for (let i = 1; i <= 6; i++) {
+
+        let el = document.getElementById("m" + i + "-desc");
+
+        if (el) {
+            data["member" + i] = el.innerText;
+        }
+    }
+
+    localStorage.setItem("trusteeData", JSON.stringify(data));
+}
+function loadTrusteeData() {
+
+    let stored = localStorage.getItem("trusteeData");
+
+    if (!stored) return;
+
+    let data = JSON.parse(stored);
+
+    for (let i = 1; i <= 6; i++) {
+
+        let el = document.getElementById("m" + i + "-desc");
+
+        if (el && data["member" + i]) {
+            el.innerText = data["member" + i];
+        }
+    }
+}
+//✅FAMILY TREE
+function openFamilyPage() {
+
+    document.getElementById("menuSection").style.display = "none";
+    document.getElementById("familySection").style.display = "block";
+
+    document.body.style.background = "#f5f5dc";
+
+    document.getElementById("title").innerText = "ಕುಟುಂಬ ವೃಕ್ಷ";
+
+    // ✅ ADD THIS LINE
+    hideEmptyMembers();
+}
+
+function closeFamilyPage() {
+
+    document.getElementById("menuSection").style.display = "";
+    document.getElementById("familySection").style.display = "none";
+
+    document.body.style.background = "";  // ✅ restore
+
+    document.getElementById("title").innerText = "ಶ್ರೀ ನಾಗಬ್ರಹ್ಮ ರಕ್ತೇಶ್ವರಿ ಮೂಲಸ್ಥಾನ";
+}
+function editGroup(prefix) {
+
+    if (!isLoggedIn) {
+        alert("Please login to edit");
+        return;
+    }
+
+    for (let i = 1; i <= 15; i++) {
+
+        let el = document.getElementById(prefix + i);
+
+        if (!el) continue;   // ✅ avoid crash
+
+        let newText = prompt("ಸದಸ್ಯ ಹೆಸರು:", el.innerText);
+
+        if (newText !== null) {
+            el.innerText = newText;
+        }
+    }
+
+    hideEmptyMembers();  // ✅ refresh visibility
+}
+
+function hideEmptyMembers() {
+
+    let members = document.getElementsByClassName("member");
+
+    for (let m of members) {
+
+        if (isLoggedIn) {
+            // ✅ show ALL slots after login
+            m.style.display = "block";
+        }
+        else {
+            // ✅ hide only empty before login
+            if (m.innerText.trim() === "") {
+                m.style.display = "none";
+            } else {
+                m.style.display = "block";
+            }
+        }
+    }
+}
+function editSingle(id) {
+
+    if (!isLoggedIn) return;
+
+    let el = document.getElementById(id);
+
+    let newText = prompt("ಸದಸ್ಯ ಹೆಸರು:", el.innerText);
+
+    if (newText !== null) {
+        el.innerText = newText;
+        saveFamilyData();   // ✅ save
+    }
+
+    hideEmptyMembers();
+}
+function addMember(prefix) {
+
+    if (!isLoggedIn) {
+        alert("Please login to add member");
+        return;
+    }
+
+    let found = false;
+
+    for (let i = 1; i <= 15; i++) {
+
+        let el = document.getElementById(prefix + i);
+
+        if (!el) continue;
+
+        // ✅ treat both empty OR default text as empty
+        if (el.innerText.trim() === "" || el.innerText.includes("ಸದಸ್ಯ")) {
+
+            let name = prompt("ಹೊಸ ಸದಸ್ಯರ ಹೆಸರು:");
+
+            if (name && name.trim() !== "") {
+                el.innerText = name;
+                saveFamilyData();   // ✅ save
+            }
+
+            found = true;
+            break;
+        }
+    }
+
+    if (!found) {
+        alert("All 15 member slots are filled");
+    }
+
+    hideEmptyMembers();
+}
+
+function saveFamilyData() {
+
+    let data = {};
+
+    for (let f = 1; f <= 6; f++) {
+
+        data["family" + f] = {
+            title: "",
+            members: []
+        };
+
+        let title = document.getElementById("family" + f + "-title");
+        if (title) {
+            data["family" + f].title = title.innerText;
+        }
+
+        for (let i = 1; i <= 15; i++) {
+
+            let el = document.getElementById("f" + f + "m" + i);
+
+            if (el) {
+                data["family" + f].members.push(el.innerText);
+            }
+        }
+    }
+
+    localStorage.setItem("familyData", JSON.stringify(data));
+}
+function loadFamilyData() {
+
+    let stored = localStorage.getItem("familyData");
+
+    if (!stored) return;
+
+    let data = JSON.parse(stored);
+
+    for (let f = 1; f <= 6; f++) {
+
+        let family = data["family" + f];
+
+        if (!family) continue;
+
+        let title = document.getElementById("family" + f + "-title");
+        if (title) title.innerText = family.title;
+
+        for (let i = 1; i <= 15; i++) {
+
+            let el = document.getElementById("f" + f + "m" + i);
+
+            if (el && family.members[i-1] !== undefined) {
+                el.innerText = family.members[i-1];
+            }
+        }
+    }
+
+    hideEmptyMembers();
+}
+function openFamilyPage() {
+    document.getElementById("menuSection").style.display = "none";
+    document.getElementById("familySection").style.display = "block";
+    document.body.style.background = "#f5f5dc";
+    document.getElementById("title").innerText = "ಕುಟುಂಬ ವೃಕ್ಷ";
+
+    loadFamilyData();   // ✅ ADD THIS
+}
+  // ✅ DONATION LIST SCRIPT
+
+function openDonationListPage() {
+    document.getElementById("menuSection").style.display = "none";
+    document.getElementById("donationListSection").style.display = "block";
+
+    document.body.style.background = "#f5f5dc";   // ✅ ADD THIS
+
+    document.getElementById("title").innerText = "ದಾನ ಪಟ್ಟಿ";
+}
+
+function closeDonationListPage() {
+    document.getElementById("menuSection").style.display = "";
+    document.getElementById("donationListSection").style.display = "none";
+
+    document.body.style.background = "";   // ✅ restore
+
+    document.getElementById("title").innerText = "ಶ್ರೀ ನಾಗಬ್ರಹ್ಮ ರಕ್ತೇಶ್ವರಿ ಮೂಲಸ್ಥಾನ";
+}
+function openPanchamiList() {
+
+    document.getElementById("donationListSection").style.display = "none";
+    document.getElementById("panchamiSection").style.display = "block";
+
+    document.getElementById("title").innerText = "ಪಂಚಮಿ ದಾನಿಗಳು";
+
+// ✅ HIDE ADDRESS
+        document.getElementById("address-kn").style.display = "none";
+
+    loadPanchamiTable();   // ✅ MUST
+}
+function closePanchamiPage() {
+
+    document.getElementById("donationListSection").style.display = "block";
+    document.getElementById("panchamiSection").style.display = "none";
+
+    document.getElementById("title").innerText = "ದಾನ ಪಟ್ಟಿ";
+}
+function loadFamilyMembersToDropdown() {
+
+    let dropdown = document.getElementById("familyDropdown");
+
+    dropdown.innerHTML = '<option value="">-- Select Member --</option>';
+
+    let stored = localStorage.getItem("familyData");
+
+    if (!stored) return;
+
+    let data = JSON.parse(stored);
+
+    for (let f = 1; f <= 6; f++) {
+
+        let family = data["family" + f];
+
+        if (!family) continue;
+
+        for (let member of family.members) {
+
+            if (member && member.trim() !== "") {
+
+                let option = document.createElement("option");
+
+                option.value = member;
+                option.text = member;
+
+                dropdown.appendChild(option);
+            }
+        }
+    }
+}
+function loadPanchamiTable() {
+
+    let tbody = document.getElementById("panchamiBody");
+    tbody.innerHTML = "";
+
+    let stored = localStorage.getItem("familyData");
+    if (!stored) return;
+
+    let data = JSON.parse(stored);
+
+let count = 1;
+
+for (let f = 1; f <= 6; f++) {
+
+    let family = data["family" + f];
+    if (!family) continue;
+
+    for (let member of family.members) {
+
+        if (member && member.trim() !== "") {
+
+            let row = "<tr>";
+
+            row += "<td>" + count + "</td>";   // ✅ Serial No
+            count++;
+
+            row += "<td>" + f + "</td>";
+            row += `<td onclick="editCell(this)">${member}</td>`;
+            row += `<td onclick="editCell(this)">---</td>`;
+
+            for (let y = 2018; y <= 2028; y++) {
+                row += `<td onclick="togglePayment(this)">❌</td>`;
+            }
+
+            row += "</tr>";
+
+            tbody.innerHTML += row;
+        }
+    }
+}
+
+    loadPaymentStatus();   // ✅ ONLY ONE CALL
+}
+
+function togglePayment(cell) {
+
+    if (!isLoggedIn) {
+        alert("Login required");
+        return;
+    }
+
+    if (cell.innerText === "❌") {
+        cell.innerText = "✅";
+        cell.style.color = "green";   // Paid
+    } else {
+        cell.innerText = "❌";
+        cell.style.color = "red";     // Pending
+    }
+
+    savePaymentStatus();
+}
+function savePaymentStatus() {
+
+    let table = document.getElementById("panchamiTable");
+
+    let data = [];
+
+    for (let i = 1; i < table.rows.length; i++) {
+
+        let row = table.rows[i];
+        let rowData = [];
+
+        for (let j = 0; j < row.cells.length; j++) {
+            rowData.push(row.cells[j].innerText);
+        }
+
+        data.push(rowData);
+    }
+
+    localStorage.setItem("panchamiData", JSON.stringify(data));
+}
+function loadPaymentStatus() {
+
+    let stored = localStorage.getItem("panchamiData");
+    if (!stored) return;
+
+    let data = JSON.parse(stored);
+    let table = document.getElementById("panchamiTable");
+
+    for (let i = 1; i < table.rows.length; i++) {
+
+        let row = table.rows[i];
+
+        for (let j = 4; j < row.cells.length; j++) {
+
+            let value = data[i-1] && data[i-1][j];
+
+            // ✅ FIX: handle undefined
+            if (!value || value === "undefined") {
+                value = "❌";
+            }
+
+            row.cells[j].innerText = value;
+
+            if (value === "✅") {
+                row.cells[j].style.color = "green";
+            } else {
+                row.cells[j].style.color = "red";
+            }
+        }
+    }
+}
+function searchTable() {
+
+    let input = document.getElementById("searchInput").value.toLowerCase();
+
+    let table = document.getElementById("panchamiTable");
+    let rows = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < rows.length; i++) {
+
+        let row = rows[i];
+        let text = row.innerText.toLowerCase();
+
+        if (text.includes(input)) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    }
+}
+function openEventsPage() {
+
+    document.getElementById("menuSection").style.display = "none";
+    document.getElementById("eventsSection").style.display = "block";
+
+    document.body.style.background = "#f5f5dc";
+
+    document.getElementById("title").innerText = "ಕಾರ್ಯಕ್ರಮಗಳು";
+
+    // ✅ hide address
+    document.getElementById("address-kn").style.display = "none";
+}
+
+function closeEventsPage() {
+
+    document.getElementById("menuSection").style.display = "";
+    document.getElementById("eventsSection").style.display = "none";
+
+    document.body.style.background = "";
+
+    document.getElementById("title").innerText = "ಶ್ರೀ ನಾಗಬ್ರಹ್ಮ ರಕ್ತೇಶ್ವರಿ ಮೂಲಸ್ಥಾನ";
+
+    // ✅ show address
+    document.getElementById("address-kn").style.display = "block";
+}
+function openEventYear(year) {
+    alert("Open events for year: " + year);
+}
+function openAdminPage() {
+
+    document.getElementById("menuSection").style.display = "none";
+
+    document.getElementById("adminSection").style.display = "block";
+
+    document.body.style.background = "#f5f5dc";
+
+    document.getElementById("title").innerText = "ನಿರ್ವಹಣೆ";
+
+    // ✅ hide address
+    document.getElementById("address-kn").style.display = "none";
+}
+function closeAdminPage() {
+
+    document.getElementById("menuSection").style.display = "";
+
+    document.getElementById("adminSection").style.display = "none";
+
+    document.body.style.background = "";
+
+    document.getElementById("title").innerText =
+        "ಶ್ರೀ ನಾಗಬ್ರಹ್ಮ ರಕ್ತೇಶ್ವರಿ ಮೂಲಸ್ಥಾನ";
+
+    document.getElementById("address-kn").style.display = "block";
+}
+
+function openUploadEvents() {
+    alert("Upload event details (scrolling text feature)");
+}
+
+function openExpenses() {
+    alert("Open yearly expenses page (2018–present)");
+}
+
+function openGeneralData() {
+    alert("Upload JPG/PDF files");
+}
+
+function openPassword() {
+    alert("Change login password");
+}
+</script>
+
+<div id="donationPopup" class="popup">
+
+    <div class="form-box">
+        <span class="close" onclick="closeDonationForm()">&times;</span>
+
+        <h2>Seva Donation Form</h2>
+
+        <!-- Seva Type -->
+        <label>Type of Seva:</label>
+        <select id="sevaType" onchange="updateForm()">
+            <option value="">Select</option>
+            <option value="thambila">Thambila Seva</option>
+            <option value="donation">Donation</option>
+            <option value="panchami">Annual Panchami Pooje</option>
+        </select>
+
+        <!-- Common Fields -->
+        <input type="text" id="name" placeholder="Name">
+        <input type="text" id="place" placeholder="Place">
+        <input type="text" id="contact" placeholder="Contact Number">
+
+        <!-- Panchami dropdown -->
+        <select id="familyList" style="display:none;">
+            <option value="">Select Family</option>
+            <option value="Fam1">Shetty Family</option>
+            <option value="Fam2">Rao Family</option>
+        </select>
+
+        <input type="number" id="amount" placeholder="Amount">
+	<button onclick="makePayment()">Make Payment</button>
+
+        <p id="statusMsg"></p>
+
+    </div>
+
+</div>
+
+</div>
+</div>
+</body>
+</html>
