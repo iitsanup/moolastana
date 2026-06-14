@@ -16,10 +16,6 @@
 <div class="header">
     <h1 id="title">ಶ್ರೀ ನಾಗಬ್ರಹ್ಮ ರಕ್ತೇಶ್ವರಿ ಮೂಲಸ್ಥಾನ</h1>
   
-<p id="address-kn" class="address">
-    ಕಟ್ಟೆ ಬಜಾರ್, ಬಂಗ್ರಾ ಮಂಜೇಶ್ವರ - ೬೭೧೩೨೩
-</p>
-
 </div>
 
 <!-- EVENTS TICKER -->
@@ -84,9 +80,7 @@
 <!-- ✅ SEVA SECTION -->
 <div id="sevaSection" style="display:none;">
 
-    <button onclick="closeSevaPage()" style="margin:20px;">
-        ⬅ ಹಿಂದಿರುಗಿ
-    </button>
+    <button class="back-btn" onclick="closeSevaPage()">&#8592;</button>
 
       <!-- ✅PANCHAMI -->
     <div class="seva-card">
@@ -151,7 +145,7 @@
 
 <!-- CONTACT SECTION -->
 <div id="contactSection" style="display:none; background:#f5f5dc; min-height:100vh; padding:20px;">
-    <button onclick="closeContactPage()" style="margin-bottom:15px;">⬅ ಹಿಂದಿರುಗಿ</button>
+    <button class="back-btn" onclick="closeContactPage()">&#8592;</button>
     <h2 style="text-align:center; color:#8B4513; margin-bottom:20px;">ಸಂಪರ್ಕ ವಿವರಗಳು</h2>
     <div class="contact-card">
         <div class="contact-row">
@@ -208,9 +202,7 @@
 <!-- ✅ TRUSTEE SECTION -->
 <div id="trusteeSection" style="display:none;">
 
-    <button onclick="closeTrusteePage()" style="margin:20px;">
-        ⬅ ಹಿಂದಿರುಗಿ
-    </button>
+    <button class="back-btn" onclick="closeTrusteePage()">&#8592;</button>
 
     <div class="trustee-container">
 
@@ -279,7 +271,7 @@
 <!-- ✅ FAMILY TREE SECTION -->
 <div id="familySection" style="display:none; background:#f5f5dc; min-height:100vh; padding:20px;">
 
-    <button onclick="closeFamilyPage()">⬅ ಹಿಂದಿರುಗಿ</button>
+    <button class="back-btn" onclick="closeFamilyPage()">&#8592;</button>
    
     <div class="family-container">
 
@@ -467,7 +459,7 @@
 <!-- ✅ DONATION LIST SECTION -->
 <div id="donationListSection" style="display:none; background:#f5f5dc; min-height:100vh; padding:20px; color:black;">
 
-    <button onclick="closeDonationListPage()">⬅ ಹಿಂದಿರುಗಿ</button>
+    <button class="back-btn" onclick="closeDonationListPage()">&#8592;</button>
 
     <div class="donation-container">
 
@@ -504,7 +496,7 @@
 
 </div>
 
-    <button onclick="closePanchamiPage()">⬅ ಹಿಂದಿರುಗಿ</button>
+    <button class="back-btn" onclick="closePanchamiPage()">&#8592;</button>
 
     <h2 style="text-align:center;">ವಾರ್ಷಿಕ ಪಂಚಮಿ ಪಾವತಿ ವಿವರ</h2>
 
@@ -545,7 +537,7 @@
 <div id="eventsSection" 
      style="display:none; background:#f5f5dc; min-height:100vh; padding:20px;">
 
-    <button onclick="closeEventsPage()">⬅ ಹಿಂದಿರುಗಿ</button>
+    <button class="back-btn" onclick="closeEventsPage()">&#8592;</button>
 
     <h2 style="text-align:center;">ಕಾರ್ಯಕ್ರಮಗಳು</h2>
 
@@ -561,7 +553,7 @@
 <div id="adminSection" 
      style="display:none; background:#f5f5dc; min-height:100vh; padding:20px;">
 
-    <button onclick="closeAdminPage()">⬅ ಹಿಂದಿರುಗಿ</button>
+    <button class="back-btn" onclick="closeAdminPage()">&#8592;</button>
 
     <h2 style="text-align:center;">ನಿರ್ವಹಣೆ</h2>
 
@@ -576,7 +568,7 @@
 
 <!-- MEMBER DATABASE SECTION -->
 <div id="memberDatabaseSection" style="display:none; background:#f5f5dc; min-height:100vh; padding:15px;">
-    <button onclick="closeMemberDatabase()" style="margin-bottom:10px;">⬅ ಹಿಂದಿರುಗಿ</button>
+    <button class="back-btn" onclick="closeMemberDatabase()">&#8592;</button>
     <h2 style="text-align:center; color:#8B4513;">ಸದಸ್ಯರ ದತ್ತಾಂಶ (Member Database)</h2>
 
     <!-- Add Member Form -->
@@ -676,6 +668,9 @@ function logoutUser() {
     for (let icon of adminIcons) {
     icon.style.display = "none";
 }
+    // Hide announcement input
+    let annInput = document.getElementById("announcementInput");
+    if (annInput) annInput.style.display = "none";
 }
 
 window.onclick = function(event) {
@@ -1060,9 +1055,7 @@ function openPanchamiList() {
     document.getElementById("title").innerText = "ಪಂಚಮಿ ದಾನಿಗಳು";
 
 // ✅ HIDE ADDRESS
-        document.getElementById("address-kn").style.display = "none";
-
-    loadPanchamiTable();   // ✅ MUST
+        loadPanchamiTable();   // ✅ MUST
 }
 function closePanchamiPage() {
 
@@ -1224,10 +1217,15 @@ function openEventsPage() {
 
     document.getElementById("title").innerText = "ಕಾರ್ಯಕ್ರಮಗಳು";
 
-    // ✅ hide address
-    document.getElementById("address-kn").style.display = "none";
-}
+        }
 
+function openEventsPage() {
+    document.getElementById("menuSection").style.display = "none";
+    document.getElementById("eventsSection").style.display = "block";
+    document.body.style.background = "#f5f5dc";
+    document.getElementById("title").innerText = "ಕಾರ್ಯಕ್ರಮಗಳು";
+    loadEventsPublic();
+}
 function closeEventsPage() {
 
     document.getElementById("menuSection").style.display = "";
@@ -1237,9 +1235,7 @@ function closeEventsPage() {
 
     document.getElementById("title").innerText = "ಶ್ರೀ ನಾಗಬ್ರಹ್ಮ ರಕ್ತೇಶ್ವರಿ ಮೂಲಸ್ಥಾನ";
 
-    // ✅ show address
-    document.getElementById("address-kn").style.display = "block";
-}
+        }
 function openEventYear(year) {
     alert("Open events for year: " + year);
 }
@@ -1253,9 +1249,7 @@ function openAdminPage() {
 
     document.getElementById("title").innerText = "ನಿರ್ವಹಣೆ";
 
-    // ✅ hide address
-    document.getElementById("address-kn").style.display = "none";
-}
+        }
 function closeAdminPage() {
 
     document.getElementById("menuSection").style.display = "";
@@ -1267,8 +1261,7 @@ function closeAdminPage() {
     document.getElementById("title").innerText =
         "ಶ್ರೀ ನಾಗಬ್ರಹ್ಮ ರಕ್ತೇಶ್ವರಿ ಮೂಲಸ್ಥಾನ";
 
-    document.getElementById("address-kn").style.display = "block";
-}
+    }
 
 function openUploadEvents() {
     document.getElementById("adminSection").style.display = "none";
@@ -1362,20 +1355,70 @@ function openGeneralData() {
 function openPassword() {
     alert("Change login password");
 }
+
+// ============ ANNOUNCEMENTS ============
+async function addAnnouncement() {
+    let title = document.getElementById("ann-title").value.trim();
+    let date = document.getElementById("ann-date").value.trim();
+    let desc = document.getElementById("ann-desc").value.trim();
+    if (!title) { document.getElementById("ann-status").innerText = "❌ Title required"; return; }
+    let res = await fetch("/save_event", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ title, date, description: desc })
+    });
+    let data = await res.json();
+    if (data.status === "success") {
+        document.getElementById("ann-status").innerText = "✅ Saved!";
+        document.getElementById("ann-title").value = "";
+        document.getElementById("ann-date").value = "";
+        document.getElementById("ann-desc").value = "";
+        await loadEventsPublic();
+        await loadEventsTicker();
+        setTimeout(() => { document.getElementById("ann-status").innerText = ""; }, 3000);
+    }
+}
+async function loadEventsPublic() {
+    try {
+        let res = await fetch("/get_events");
+        let events = await res.json();
+        let container = document.getElementById("eventsListPublic");
+        if (!container) return;
+        if (!events.length) {
+            container.innerHTML = "<p style='color:#888;text-align:center;'>ಯಾವುದೇ ಕಾರ್ಯಕ್ರಮಗಳು ಇಲ್ಲ</p>";
+            return;
+        }
+        container.innerHTML = events.map(e => `
+            <div style="background:white;border-radius:10px;padding:12px;margin:8px 0;border-left:4px solid #8B4513;display:flex;justify-content:space-between;align-items:flex-start;">
+                <div>
+                    <strong style="color:#8B4513;font-size:15px;">📅 ${e.title}</strong>
+                    ${e.date ? '<p style="color:#666;font-size:12px;margin-top:3px;">🗓 '+e.date+'</p>' : ''}
+                    ${e.description ? '<p style="color:#444;font-size:13px;margin-top:4px;">'+e.description+'</p>' : ''}
+                </div>
+                ${isLoggedIn ? '<button onclick="deleteAnnouncement('+e.id+')" style="background:red;color:white;border:none;padding:4px 8px;border-radius:5px;cursor:pointer;flex-shrink:0;">🗑️</button>' : ''}
+            </div>
+        `).join('');
+    } catch(e) {}
+}
+async function deleteAnnouncement(id) {
+    if (!confirm("Delete this event?")) return;
+    await fetch("/delete_event/" + id, { method: "DELETE" });
+    await loadEventsPublic();
+    await loadEventsTicker();
+}
+
 // ============ CONTACT PAGE ============
 async function openContactPage() {
     document.getElementById("menuSection").style.display = "none";
     document.getElementById("contactSection").style.display = "block";
     document.getElementById("title").innerText = "ಸಂಪರ್ಕ";
-    document.getElementById("address-kn").style.display = "none";
     await loadContactData();
 }
 function closeContactPage() {
     document.getElementById("menuSection").style.display = "";
     document.getElementById("contactSection").style.display = "none";
     document.getElementById("title").innerText = "ಶ್ರೀ ನಾಗಬ್ರಹ್ಮ ರಕ್ತೇಶ್ವರಿ ಮೂಲಸ್ಥಾನ";
-    document.getElementById("address-kn").style.display = "block";
-}
+    }
 async function editContact(id) {
     if (!isLoggedIn) { alert("Please login to edit"); return; }
     let el = document.getElementById(id);
@@ -1548,7 +1591,7 @@ function searchDatabase() {
 
 <!-- EVENT MANAGE SECTION -->
 <div id="eventManageSection" style="display:none;background:#f5f5dc;min-height:100vh;padding:15px;">
-    <button onclick="closeEventManage()" style="margin-bottom:10px;">⬅ ಹಿಂದಿರುಗಿ</button>
+    <button class="back-btn" onclick="closeEventManage()">&#8592;</button>
     <h2 style="text-align:center;color:#8B4513;margin-bottom:15px;">ಕಾರ್ಯಕ್ರಮ ನಿರ್ವಹಣೆ</h2>
     <div class="db-form">
         <h3 style="color:#8B4513;margin-bottom:10px;">➕ ಹೊಸ ಕಾರ್ಯಕ್ರಮ ಸೇರಿಸಿ</h3>
