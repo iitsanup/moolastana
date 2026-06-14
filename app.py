@@ -174,6 +174,24 @@ def get_seva_bookings():
     data = supabase_get("seva_bookings", "order=booked_at.desc")
     return jsonify(data)
 
+# ===================== EVENTS APIs =====================
+
+@app.route("/get_events")
+def get_events():
+    data = supabase_get("events", "order=id.desc")
+    return jsonify(data)
+
+@app.route("/save_event", methods=["POST"])
+def save_event():
+    body = request.get_json()
+    result = supabase_post("events", body)
+    return jsonify({"status": "success", "data": result})
+
+@app.route("/delete_event/<int:event_id>", methods=["DELETE"])
+def delete_event(event_id):
+    supabase_delete("events", "id", event_id)
+    return jsonify({"status": "success"})
+
 # ===================== RUN =====================
 if __name__ == '__main__':
     app.run(debug=False)

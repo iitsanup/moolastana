@@ -22,6 +22,18 @@
 
 </div>
 
+<!-- EVENTS TICKER -->
+<div id="eventsTicker" style="width:90%;max-width:420px;margin:0 auto 8px;overflow:hidden;height:60px;background:rgba(0,0,0,0.6);border-radius:10px;border:1px solid rgba(255,165,0,0.4);">
+    <div style="display:flex;align-items:center;padding:0 10px;height:100%;">
+        <span style="color:orange;font-size:18px;margin-right:8px;flex-shrink:0;">📢</span>
+        <div style="overflow:hidden;height:100%;flex:1;position:relative;">
+            <div id="eventsScroll" style="position:absolute;width:100%;animation:scrollUp 8s linear infinite;">
+                <p class="event-line">ಮುಂಬರುವ ಕಾರ್ಯಕ್ರಮಗಳು ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತವೆ...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
     <!-- ✅MENU -->
     <div class="menu" id="menuSection">
         <div class="menu-item" onclick="openTrusteePage()">
@@ -62,7 +74,7 @@
             <p>ಸಂಪರ್ಕ</p>
         </div>
         <div class="menu-item admin-only" style="display:none;" onclick="openAdminPage()">
-            <img src="{{ url_for('static', filename='images/settings.png') }}">
+            <img src="{{ url_for('static', filename='images/management.png') }}">
             <p>ನಿರ್ವಹಣೆ</p>
 </div>
 
@@ -733,7 +745,7 @@ function showTab(tabName) {
 
 
 // ✅LOAD AT START
-window.onload = async function() { await loadFamilyData(); };
+window.onload = async function() { await loadFamilyData(); await loadEventsTicker(); };
 
 //✅SEVA 
 
@@ -1259,7 +1271,84 @@ function closeAdminPage() {
 }
 
 function openUploadEvents() {
-    alert("Upload event details (scrolling text feature)");
+    document.getElementById("adminSection").style.display = "none";
+    document.getElementById("eventManageSection").style.display = "block";
+    document.getElementById("title").innerText = "ಕಾರ್ಯಕ್ರಮ ನಿರ್ವಹಣೆ";
+    loadEventsList();
+}
+function closeEventManage() {
+    document.getElementById("eventManageSection").style.display = "none";
+    document.getElementById("adminSection").style.display = "block";
+    document.getElementById("title").innerText = "ನಿರ್ವಹಣೆ";
+}
+async function addEvent() {
+    let title = document.getElementById("evt-title").value.trim();
+    let date = document.getElementById("evt-date").value.trim();
+    let desc = document.getElementById("evt-desc").value.trim();
+    if (!title) { alert("Event title required"); return; }
+    let res = await fetch("/save_event", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ title, date, description: desc })
+    });
+    let data = await res.json();
+    if (data.status === "success") {
+        document.getElementById("evt-title").value = "";
+        document.getElementById("evt-date").value = "";
+        document.getElementById("evt-desc").value = "";
+        await loadEventsList();
+        await loadEventsTicker();
+    }
+}
+async function loadEventsList() {
+    let res = await fetch("/get_events");
+    let events = await res.json();
+    let container = document.getElementById("eventsListAdmin");
+    container.innerHTML = "";
+    if (!events.length) { container.innerHTML = "<p style='color:#888;'>No events added yet.</p>"; return; }
+    events.forEach(e => {
+        container.innerHTML += `<div style="background:white;border-radius:8px;padding:10px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+                <strong style="color:#8B4513;">${e.title}</strong>
+                <p style="font-size:12px;color:#666;">${e.date||""} ${e.description||""}</p>
+            </div>
+            <button onclick="deleteEvent(${e.id})" style="background:red;color:white;border:none;padding:4px 10px;border-radius:5px;cursor:pointer;">🗑️</button>
+        </div>`;
+    });
+}
+async function deleteEvent(id) {
+    if (!confirm("Delete this event?")) return;
+    await fetch("/delete_event/" + id, { method: "DELETE" });
+    await loadEventsList();
+    await loadEventsTicker();
+}
+async function loadEventsTicker() {
+    try {
+        let res = await fetch("/get_events");
+        let events = await res.json();
+        let scroll = document.getElementById("eventsScroll");
+        if (!scroll) return;
+        if (!events.length) {
+            scroll.innerHTML = '<p class="event-line">ಮುಂಬರುವ ಕಾರ್ಯಕ್ರಮಗಳು ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತವೆ...</p>';
+            return;
+        }
+        scroll.innerHTML = events.map(e =>
+            `<p class="event-line">📅 ${e.date ? e.date + " — " : ""}${e.title}${e.description ? ": " + e.description : ""}</p>`
+        ).join("");
+        // duplicate for seamless loop
+        scroll.innerHTML += scroll.innerHTML;
+        let totalH = scroll.scrollHeight / 2;
+        scroll.style.animation = "none";
+        scroll.style.transition = "none";
+        scroll.style.top = "0px";
+        let pos = 0;
+        clearInterval(window._tickerInterval);
+        window._tickerInterval = setInterval(() => {
+            pos += 0.5;
+            if (pos >= totalH) pos = 0;
+            scroll.style.top = "-" + pos + "px";
+        }, 30);
+    } catch(e) {}
 }
 
 function openExpenses() {
@@ -1455,6 +1544,21 @@ function searchDatabase() {
 </div>
 
 </div>
+</div>
+
+<!-- EVENT MANAGE SECTION -->
+<div id="eventManageSection" style="display:none;background:#f5f5dc;min-height:100vh;padding:15px;">
+    <button onclick="closeEventManage()" style="margin-bottom:10px;">⬅ ಹಿಂದಿರುಗಿ</button>
+    <h2 style="text-align:center;color:#8B4513;margin-bottom:15px;">ಕಾರ್ಯಕ್ರಮ ನಿರ್ವಹಣೆ</h2>
+    <div class="db-form">
+        <h3 style="color:#8B4513;margin-bottom:10px;">➕ ಹೊಸ ಕಾರ್ಯಕ್ರಮ ಸೇರಿಸಿ</h3>
+        <input type="text" id="evt-title" placeholder="ಕಾರ್ಯಕ್ರಮದ ಹೆಸರು (Event Title) *" style="width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #ccc;">
+        <input type="text" id="evt-date" placeholder="ದಿನಾಂಕ (Date e.g. Jan 15, 2026)" style="width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #ccc;">
+        <input type="text" id="evt-desc" placeholder="ವಿವರ (Description)" style="width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #ccc;">
+        <button onclick="addEvent()" style="margin-top:10px;padding:10px;background:#8B4513;color:white;border:none;border-radius:8px;width:100%;font-size:15px;cursor:pointer;">✅ Save Event</button>
+    </div>
+    <h3 style="color:#8B4513;margin:15px 0 8px;">ಪ್ರಸ್ತುತ ಕಾರ್ಯಕ್ರಮಗಳು</h3>
+    <div id="eventsListAdmin"></div>
 </div>
 
 <!-- WATERMARK -->
