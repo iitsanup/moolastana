@@ -353,19 +353,34 @@ ul {
 
 .family-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    padding: 10px 0;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 10px 5px 15px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+}
+
+.family-container::-webkit-scrollbar {
+    height: 4px;
+}
+.family-container::-webkit-scrollbar-thumb {
+    background: #8B4513;
+    border-radius: 4px;
 }
 
 .family-card {
-    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
     text-align: center;
     background: white;
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    scroll-snap-align: start;
+    flex-shrink: 0;
 }
 
 .family-img {

@@ -999,26 +999,38 @@ async function saveFamilyData() {
     }
 }
 async function loadFamilyData() {
-    let res = await fetch("/get_families");
-    let rows = await res.json();
-    // Group by family_number
-    let grouped = {};
-    for (let row of rows) {
-        let f = row.family_number;
-        if (!grouped[f]) grouped[f] = { title: row.family_name, members: [] };
-        if (row.member_name) grouped[f].members.push(row.member_name);
-    }
-    for (let f = 1; f <= 6; f++) {
-        let family = grouped[f];
-        if (!family) continue;
-        let title = document.getElementById("family" + f + "-title");
-        if (title && family.title) title.innerText = family.title;
-        for (let i = 0; i < family.members.length && i < 15; i++) {
-            let el = document.getElementById("f" + f + "m" + (i+1));
-            if (el) el.innerText = family.members[i];
+    await loadFamilyFromDatabase();
+}
+
+async function loadFamilyFromDatabase() {
+    try {
+        let res = await fetch("/get_member_db");
+        let members = await res.json();
+        // Group by family_number
+        let grouped = {};
+        for (let m of members) {
+            let f = m.family_number;
+            if (!f) continue;
+            if (!grouped[f]) grouped[f] = [];
+            grouped[f].push(m.name);
         }
-    }
-    hideEmptyMembers();
+        // Clear all family cards first
+        for (let f = 1; f <= 6; f++) {
+            for (let i = 1; i <= 15; i++) {
+                let el = document.getElementById("f"+f+"m"+i);
+                if (el) el.innerText = "";
+            }
+        }
+        // Fill family cards
+        for (let f = 1; f <= 6; f++) {
+            let members = grouped[f] || [];
+            for (let i = 0; i < members.length && i < 15; i++) {
+                let el = document.getElementById("f"+f+"m"+(i+1));
+                if (el) el.innerText = members[i];
+            }
+        }
+        hideEmptyMembers();
+    } catch(e) { console.log("Family load error:", e); }
 }
 function openFamilyPage() {
     document.getElementById("menuSection").style.display = "none";
@@ -1515,6 +1527,7 @@ async function addMemberToDatabase() {
         document.getElementById("db-role").value = "";
         document.getElementById("db-email").value = "";
         await loadMemberDatabase();
+        await loadFamilyFromDatabase();
     }
 }
 async function loadMemberDatabase() {
@@ -1523,14 +1536,17 @@ async function loadMemberDatabase() {
     let tbody = document.getElementById("memberDbBody");
     tbody.innerHTML = "";
     members.forEach((m, i) => {
-        tbody.innerHTML += `<tr>
+        tbody.innerHTML += `<tr id="dbrow-${m.id}">
             <td style="padding:6px;text-align:center;">${i+1}</td>
             <td style="padding:6px;">${m.name||""}</td>
             <td style="padding:6px;">${m.location||""}</td>
             <td style="padding:6px;">${m.phone||""}</td>
             <td style="padding:6px;text-align:center;">${m.family_number||""}</td>
             <td style="padding:6px;">${m.role||""}</td>
-            <td style="padding:6px;text-align:center;"><button onclick="deleteMember(${m.id})" style="background:red;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">🗑️</button></td>
+            <td style="padding:6px;text-align:center;display:flex;gap:4px;">
+                <button onclick="editMember(${m.id},'${(m.name||'').replace(/'/g,"\'")}','${(m.location||'').replace(/'/g,"\'")}','${(m.phone||'').replace(/'/g,"\'")}',${m.family_number||0},'${(m.role||'').replace(/'/g,"\'")}','${(m.email||'').replace(/'/g,"\'")}'')" style="background:#007bff;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">✏️</button>
+                <button onclick="deleteMember(${m.id})" style="background:red;color:white;border:none;padding:4px 8px;border-radius:4px;cursor:pointer;">🗑️</button>
+            </td>
         </tr>`;
     });
 }
@@ -1538,6 +1554,66 @@ async function deleteMember(id) {
     if (!confirm("Delete this member?")) return;
     await fetch("/delete_member_db/" + id, { method: "DELETE" });
     await loadMemberDatabase();
+}
+
+async function editMember(id, name, location, phone, familyNo, role, email) {
+    // Show edit modal
+    let modal = document.getElementById("editMemberModal");
+    if (!modal) {
+        modal = document.createElement("div");
+        modal.id = "editMemberModal";
+        modal.style.cssText = "position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999;display:flex;align-items:center;justify-content:center;";
+        modal.innerHTML = `<div style="background:white;border-radius:12px;padding:20px;width:90%;max-width:400px;max-height:90vh;overflow-y:auto;">
+            <h3 style="color:#8B4513;margin-bottom:12px;">✏️ Edit Member</h3>
+            <input id="edit-id" type="hidden">
+            <input id="edit-name" placeholder="Name *" style="width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #ccc;">
+            <input id="edit-location" placeholder="Location" style="width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #ccc;">
+            <input id="edit-phone" placeholder="Phone" style="width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #ccc;">
+            <input id="edit-family" type="number" placeholder="Family Number" style="width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #ccc;">
+            <input id="edit-role" placeholder="Role" style="width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #ccc;">
+            <input id="edit-email" placeholder="Email" style="width:100%;padding:8px;margin:4px 0;border-radius:5px;border:1px solid #ccc;">
+            <div style="display:flex;gap:8px;margin-top:12px;">
+                <button onclick="saveEditMember()" style="flex:1;padding:10px;background:#8B4513;color:white;border:none;border-radius:8px;cursor:pointer;font-size:15px;">✅ Save</button>
+                <button onclick="document.getElementById('editMemberModal').style.display='none'" style="flex:1;padding:10px;background:#ccc;border:none;border-radius:8px;cursor:pointer;font-size:15px;">✖ Cancel</button>
+            </div>
+            <p id="edit-status" style="text-align:center;margin-top:8px;font-weight:bold;color:green;"></p>
+        </div>`;
+        document.body.appendChild(modal);
+    }
+    document.getElementById("edit-id").value = id;
+    document.getElementById("edit-name").value = name;
+    document.getElementById("edit-location").value = location;
+    document.getElementById("edit-phone").value = phone;
+    document.getElementById("edit-family").value = familyNo;
+    document.getElementById("edit-role").value = role;
+    document.getElementById("edit-email").value = email.replace(/''$/,'');
+    document.getElementById("editMemberModal").style.display = "flex";
+}
+
+async function saveEditMember() {
+    let id = document.getElementById("edit-id").value;
+    let body = {
+        name: document.getElementById("edit-name").value.trim(),
+        location: document.getElementById("edit-location").value.trim(),
+        phone: document.getElementById("edit-phone").value.trim(),
+        family_number: parseInt(document.getElementById("edit-family").value)||0,
+        role: document.getElementById("edit-role").value.trim(),
+        email: document.getElementById("edit-email").value.trim()
+    };
+    let res = await fetch("/update_member_db/" + id, {
+        method: "PATCH",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(body)
+    });
+    let data = await res.json();
+    if (data.status === "success") {
+        document.getElementById("edit-status").innerText = "✅ Saved!";
+        setTimeout(() => {
+            document.getElementById("editMemberModal").style.display = "none";
+        }, 1000);
+        await loadMemberDatabase();
+        await loadFamilyFromDatabase();
+    }
 }
 function searchDatabase() {
     let input = document.getElementById("db-search").value.toLowerCase();

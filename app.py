@@ -131,6 +131,12 @@ def delete_member_db(member_id):
     supabase_delete("member_database", "id", member_id)
     return jsonify({"status": "success"})
 
+@app.route("/update_member_db/<int:member_id>", methods=["PATCH"])
+def update_member_db(member_id):
+    body = request.get_json()
+    supabase_patch("member_database", "id", member_id, body)
+    return jsonify({"status": "success"})
+
 # ===================== PAYMENT APIs =====================
 
 @app.route("/get_payments")
