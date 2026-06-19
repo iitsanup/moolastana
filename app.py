@@ -209,5 +209,8 @@ def get_next_event():
     return jsonify(supabase_get("calendar_events", f"event_date=gte.{today}&order=event_date.asc&limit=3"))
 
 # ===================== RUN =====================
+# ===================== RUN =====================
 if __name__ == '__main__':
-    app.run(debug=False)
+    import os
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port, debug=False)
