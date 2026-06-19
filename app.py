@@ -198,6 +198,32 @@ def delete_event(event_id):
     supabase_delete("events", "id", event_id)
     return jsonify({"status": "success"})
 
+# ===================== CALENDAR EVENTS APIs =====================
+
+@app.route("/get_calendar_events")
+def get_calendar_events():
+    year = request.args.get("year", "2026")
+    data = supabase_get("calendar_events", f"year=eq.{year}&order=event_date.asc")
+    return jsonify(data)
+
+@app.route("/save_calendar_event", methods=["POST"])
+def save_calendar_event():
+    body = request.get_json()
+    result = supabase_post("calendar_events", body)
+    return jsonify({"status": "success", "data": result})
+
+@app.route("/delete_calendar_event/<int:event_id>", methods=["DELETE"])
+def delete_calendar_event(event_id):
+    supabase_delete("calendar_events", "id", event_id)
+    return jsonify({"status": "success"})
+
+@app.route("/get_next_event")
+def get_next_event():
+    from datetime import date
+    today = date.today().isoformat()
+    data = supabase_get("calendar_events", f"event_date=gte.{today}&order=event_date.asc&limit=3")
+    return jsonify(data)
+
 # ===================== RUN =====================
 if __name__ == '__main__':
     app.run(debug=False)
